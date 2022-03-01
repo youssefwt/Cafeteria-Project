@@ -1,0 +1,64 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700&display=swap");
+
+body {
+  background-image: url(../assets/images/landing-page/home-img.jpeg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+label {
+  color: white;
+}
+
+.myform {
+  margin-top: 200px;
+}
+
+label {
+  font-family: "Roboto", sans-serif;
+}
+/* #d3ad7f */
+.myinputs {
+  display: block;
+  width: 100%;
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #fff;
+  background-color: #502502;
+  border: 1px solid #502502;
+  font-family: "Roboto", sans-serif;
+  border-radius: 0.25rem;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.myinputs:focus {
+  color: #3b2200;
+  outline: 0;
+  box-shadow: 0 0 0 0.25rem rgba(148, 67, 0, 0.25);
+  background-color: #d3ad7f;
+}
+
+.btn {
+  margin-top: 1rem;
+  display: inline-block;
+  padding: 0.9rem 3rem;
+  color: #502502;
+  background: #d3ad7f;
+  cursor: pointer;
+  border: none;
+  font-weight: bold;
+}
+
+.btn:hover {
+  background: #502502;
+  color: #fff;
+}
+
+#name_label,
+#password_label {
+  color: coral;
+}
