@@ -3,10 +3,8 @@
 class DbManager
 {
     private $dsn = 'mysql:dbname=CafeteriaDB;host=127.0.0.1;port=3306;';
-    // private $user = 'admin';
-    // private $password = '12345678';
-    private $user = 'root';
-    private $password = 'Azhar254@';
+    private $user = 'admin';
+    private $password = '12345678';
     public $pdo;
 
     public function __construct()
@@ -72,4 +70,42 @@ class DbManager
         echo '</table>';
        echo "</div>" ;
     }
+    // Methods for Users Table
+    function SELECTUSERS()
+    {
+        $query = "SELECT * FROM `users`";
+        $stmt = $this->pdo->prepare($query);
+        $stmt->execute();
+        return $stmt;
+    }
+    function FETCHUSER( ...$args)
+    {
+        $query = "SELECT * FROM `users` WHERE `id` = ?;";
+        $stmt = $this->pdo->prepare($query);
+        $stmt->execute($args);
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $row;
+    }
+    function INSERTUSER( ...$args)
+    {
+        $query = "Insert INTO `users` (finame, lname, password, email, image_url) Values(?,?, ?, ?, ?)";
+        $stmt = $this->pdo->prepare($query);
+        $stmt->execute($args);
+        return $stmt;
+    }
+    function UPDATEUSER( ...$args)
+    {
+        $query = "UPDATE `users` SET `finame` = ?, `lname` = ?, `password` = ?, `email` = ?, `image_url` = ? WHERE `id` = ?";
+        $stmt = $this->pdo->prepare($query);
+        $stmt->execute($args);
+        return $stmt;
+    }
+    function DELETEUSER( ...$args)
+    {
+        $query = "DELETE FROM `users` WHERE `id` = ?";
+        $stmt = $this->pdo->prepare($query);
+        $stmt->execute($args);
+        return $stmt;
+    }
+    // End of Methods for Users Table
 }
