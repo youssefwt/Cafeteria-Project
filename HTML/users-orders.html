@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>users-orders</title>
+
+    <!-- font awesome cdn link  -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+
+    <!-- bootstrap link  -->
+    <link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.css" />
+
+    <!-- custom css file link  -->
+    <link rel="stylesheet" href="../css/users-order.css" />
+  </head>
+
+  <body>
+    <!-- header section starts  -->
+    <section class="header">
+      <div class="links">
+        <a href="#" class="logo">
+          <img src="../assets/images/landing-page/logo.png" alt="" />
+        </a>
+        <nav class="navbar">
+          <a href="../index.html">home</a>
+          <!-- <a href="#myorders">my orders</a> -->
+          <span>> my orders</span>
+        </nav>
+      </div>
+      <div class="user">
+        <img
+          src="../assets/images/users/test-user.PNG"
+          alt=""
+          class="user-photo"
+        />
+        <!-- Get username variable from local storage   -->
+        <span class="user-name">islam askar</span>
+      </div>
+    </section>
+    <!-- header section ends  -->
+
+    <!-- orders section starts  -->
+    <section class="orders-section">
+      <div class="container py-2">
+        <p class="fw-bold my-0" style="font-size: 4rem">my orders</p>
+        <input type="text" placeholder="date from" class="date-picker" />
+        <input type="text" placeholder="date to" class="date-picker" />
+        <input type="button" value="filter" class="filterbtn" />
+        <!-- date picker ends  -->
+
+        <div id="orders-container">
+          <!-- order start  -->
+          <!-- table starts  -->
+          <table class="table table-dark table-striped">
+            <thead class="fs-2">
+              <tr>
+                <th scope="col">
+                  order id 12 &emsp; <i class="fas fa-plus"></i>
+                </th>
+                <th scope="col">status</th>
+                <th scope="col">amount</th>
+                <th scope="col">action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>made on &ensp; 2019/2/2 10:30 AM</td>
+                <td class="order-status">processing</td>
+                <td>55 egp</td>
+                <td><button class="btn btn-warning fs-4">cancel</button></td>
+              </tr>
+            </tbody>
+          </table>
+          <!-- table ends  -->
+          <!-- order items start  -->
+          <div class="order-items status"></div>
+          <!-- order items end  -->
+          <!-- order start  -->
+
+          <table class="table table-dark table-striped">
+            <thead class="fs-2">
+              <tr>
+                <th scope="col">
+                  order id 17 &emsp; <i class="fas fa-plus"></i>
+                </th>
+                <th scope="col">status</th>
+                <th scope="col">amount</th>
+                <th scope="col">action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>made on &ensp; 2019/2/2 10:30 AM</td>
+                <td class="order-status">out for delivery</td>
+                <td>55 egp</td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="order-items status"></div>
+        </div>
+      </div>
+      <!-- bootstrap container ends  -->
+    </section>
+    <!-- orders section ends  -->
+
+    <script src="../assets/bootstrap/js/bootstrap.bundle.js"></script>
+    <script src="../js/users-orders.js"></script>
+  </body>
+</html>
