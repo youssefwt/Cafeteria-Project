@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>checks</title>
+
+    <!-- BootStrap@5  -->
+    <link rel="stylesheet" href="./assets/bootstrap/css/bootstrap.css" />
+
+    <style>
+      body {
+        padding-top: 50px;
+        background-color: #34495e;
+      }
+
+      .hiddenRow {
+        padding: 0 !important;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- partial:index.partial.html -->
+    <div class="container">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header">Checks</div>
+          <div class="card-body">
+            <table class="table table-striped">
+              <!-- first table head -->
+              <thead>
+                <tr>
+                  <th></th>
+                  <th>Name</th>
+                  <th>Total</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <!--  user -->
+                <tr data-bs-toggle="collapse" data-bs-target="#demo1">
+                  <td>
+                    <button class="btn btn-default btn-xs">
+                      <span>+</span>
+                    </button>
+                  </td>
+                  <td>Hassan</td>
+                  <td>$100</td>
+                </tr>
+                <!-- user orders -->
+                <tr>
+                  <td colspan="12" class="hiddenRow">
+                    <div class="collapse" id="demo1">
+                      <table class="table table-dark table-striped">
+                        <thead>
+                          <tr>
+                            <th></th>
+                            <th>Order Date</th>
+                            <th>Amount</th>
+                          </tr>
+                        </thead>
+
+                        <tbody>
+                          <tr
+                            data-bs-toggle="collapse"
+                            data-bs-target="#demo10"
+                          >
+                            <td>+</td>
+                            <td>Wed Mar 02 2022 16:43:23</td>
+                            <td>$10</td>
+                          </tr>
+
+                          <!-- oredr details -->
+                          <tr>
+                            <td colspan="12" class="hiddenRow">
+                              <div id="demo10" class="collapse">
+                                <div class="d-flex justify-content-around my-3">
+                                  <!-- item -->
+                                  <div
+                                    style="border: 1px solid white"
+                                    class="text-center p-2 border-1"
+                                  >
+                                    <img
+                                      src="assets/images/landing-page/menu-1.png"
+                                      alt=""
+                                    />
+                                    <div>price: $<span>15.12</span></div>
+                                    <div>quantity: <span>3</span></div>
+                                  </div>
+                                  <!-- item -->
+                                  <div
+                                    style="border: 1px solid white"
+                                    class="text-center p-2 border-1"
+                                  >
+                                    <img
+                                      src="assets/images/landing-page/menu-1.png"
+                                      alt=""
+                                    />
+                                    <div>price: $<span>15.12</span></div>
+                                    <div>quantity: <span>3</span></div>
+                                  </div>
+                                  <!-- item -->
+                                  <div
+                                    style="border: 1px solid white"
+                                    class="text-center p-2 border-1"
+                                  >
+                                    <img
+                                      src="assets/images/landing-page/menu-1.png"
+                                      alt=""
+                                    />
+                                    <div>price: $<span>15.12</span></div>
+                                    <div>quantity: <span>3</span></div>
+                                  </div>
+                                </div>
+                              </div>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- BootStrap@5  -->
+    <script src="./assets/bootstrap/js/bootstrap.bundle.js"></script>
+  </body>
+</html>

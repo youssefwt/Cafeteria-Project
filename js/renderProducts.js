@@ -38,7 +38,7 @@ function renderProducts(products) {
         <div class="box">
             <img src="assets/images/landing-page/${prd.image_url}" alt="${prd.name}" />
             <h3>${prd.name}</h3>
-            <div class="price">${prd.Price} </div>
+            <div class="price">${prd.Price} E£ </div>
             <a href="#" class="btn">add to cart</a>
         </div>
         `;
