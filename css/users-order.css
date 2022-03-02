@@ -1,0 +1,224 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700&display=swap");
+
+:root {
+  --main-color: #d3ad7f;
+  --black: #13131a;
+  --bg: #010103;
+  --border: 0.1rem solid rgba(255, 255, 255, 0.3);
+}
+
+* {
+  font-family: "Roboto", sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  outline: none;
+  border: none;
+  text-decoration: none;
+  text-transform: capitalize;
+  transition: 0.2s linear;
+}
+
+html {
+  font-size: 62.5%;
+  overflow-x: hidden;
+  scroll-padding-top: 9rem;
+  scroll-behavior: smooth;
+}
+
+html::-webkit-scrollbar {
+  width: 0.8rem;
+}
+
+html::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+html::-webkit-scrollbar-thumb {
+  background: #fff;
+  border-radius: 5rem;
+}
+
+body {
+  background: #443633;
+}
+
+/* /////////////////////////////////////end of body styling/////////////////////////////////////////////// */
+
+/* /////////////////////////////////start of headr navbar styling///////////////////////////////////////// */
+
+.header {
+  background: var(--bg);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem 7%;
+  border-bottom: var(--border);
+  /* position: fixed;
+  top: 0;
+  left: 0;
+  right: 0; */
+  z-index: 1000;
+  height: 10vh;
+}
+
+.header .logo img {
+  height: 6rem;
+}
+
+.header .navbar {
+  display: flex;
+  align-items: center;
+}
+
+.header .navbar a,
+.header span {
+  margin: 0 1rem;
+  font-size: 1.6rem;
+  color: #fff;
+  text-decoration: none;
+}
+
+.header span {
+  color: lightgrey;
+}
+
+.header .navbar a:hover {
+  color: var(--main-color);
+  border-bottom: 0.1rem solid var(--main-color);
+  padding-bottom: 0.5rem;
+}
+
+.links {
+  width: 30rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.user {
+  display: flex;
+  align-items: center;
+}
+
+.user-photo {
+  height: 6rem;
+}
+
+.user-name {
+  font-size: 1.6rem;
+  color: #fff;
+}
+
+/* /////////////////////////////////end of headr navbar styling///////////////////////////////////////// */
+
+/* ////////////////////////////////start of date picker styling///////////////////////////////////////// */
+
+.orders-section {
+  min-height: 90vh;
+  height: 100%;
+  background: url(../assets/images/users-orders/backgd.jpg) no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+.date-picker {
+  padding: 0.7rem;
+  width: 25rem;
+  margin-right: 2rem;
+  margin-bottom: 2rem;
+  font-size: 1.7rem;
+  font-weight: bold;
+  border-radius: 0.6rem;
+}
+
+.filterbtn {
+  width: 8rem;
+  padding: 0.7rem;
+  font-size: 1.7rem;
+  font-weight: bold;
+  border-radius: 0.6rem;
+  margin-bottom: 2rem;
+}
+
+.filterbtn:hover {
+  box-shadow: -1rem -1rem 2rem inset burlywood;
+}
+
+.filterbtn:active {
+  box-shadow: 1rem 1rem 2rem inset burlywood;
+  padding: 0.5rem;
+  transition: 0s;
+}
+
+/* ///////////////////////////////////start of order styling/////////////////////////////////////////// */
+
+i {
+  padding: 0.4rem;
+}
+
+i:hover {
+  cursor: pointer;
+  color: black;
+  background-color: white;
+  border-radius: 0.5rem;
+}
+
+th,
+td {
+  padding-left: 1.5rem !important;
+  width: 22%;
+}
+
+td {
+  font-size: 1.5rem;
+  letter-spacing: 0.15rem;
+}
+
+th:first-child,
+td:first-child {
+  width: 34%;
+}
+
+/* ///////////////////////////////////end of order styling/////////////////////////////////////////// */
+
+/* ///////////////////////////////start of order items styling/////////////////////////////////////// */
+
+.order-items {
+  /* border: 5px solid black; */
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  background-color: rgb(32, 26, 23);
+  margin-bottom: 1rem;
+  margin-top: -1rem;
+  transition: all 1s;
+  border-bottom-left-radius: 1.5rem;
+  border-bottom-right-radius: 1.5rem;
+  -webkit-transition: all 0.3s linear 0s;
+  transition: all 0.3s linear 0s;
+}
+
+.status {
+  height: 0;
+  overflow: hidden;
+}
+
+.item {
+  margin: 0 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: white;
+}
+
+.item img {
+  width: 15rem;
+  box-shadow: rgba(219, 199, 143, 0.25) 0px 4px 8px -2px,
+    rgba(196, 176, 157, 0.08) 0px 0px 0px 1px;
+  margin-bottom: 1rem;
+  margin-top: 0.5rem;
+}
+
+/* ///////////////////////////////end of order items styling/////////////////////////////////////// */
