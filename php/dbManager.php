@@ -22,16 +22,47 @@ class DbManager
         $this->pdo = null;
     }
 
+    private function executeToJson($stmt)
+    {
+        $stmt->execute();
+        $result = $stmt->fetchAll(PDO::FETCH_OBJ);
+
+        //close query
+        $stmt->closeCursor();
+        $resultAsJson = json_encode($result);
+        echo $resultAsJson;
+    }
+
     public function getProducts()
     {
         $query = "SELECT * FROM Products";
         $stmt = $this->pdo->prepare($query);
-        $stmt->execute();
-        $stds = $stmt->fetchAll(PDO::FETCH_OBJ);
+        $this->executeToJson($stmt);
+    }
+
+    public function getUsersTotal()
+    {
+        $query = "SELECT o.user_id,u.finame , SUM(o.total) AS total FROM Users u , Orders o 
+                WHERE u.id=o.user_id
+                GROUP BY o.user_id";
+
+        $stmt = $this->pdo->prepare($query);
+        $this->executeToJson($stmt);
+    }
+
+    public function getOrdersByUser($userId)
+    {
+        $query = "SELECT o.id , o.datetime , o.total 
+                FROM Users u , Orders o 
+                WHERE u.id=:userId;";
+
+        $stmt = $this->pdo->prepare($query);
+        $stmt->execute(["userId" => $userId]);
+        $result = $stmt->fetchAll(PDO::FETCH_OBJ);
 
         //close query
         $stmt->closeCursor();
-        $myjson = json_encode($stds);
-        echo $myjson;
+        $resultAsJson = json_encode($result);
+        echo $resultAsJson;
     }
 }

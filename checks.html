@@ -35,11 +35,11 @@
                 </tr>
               </thead>
 
-              <tbody>
+              <tbody id="checksTableBody">
                 <!--  user -->
                 <tr data-bs-toggle="collapse" data-bs-target="#demo1">
                   <td>
-                    <button class="btn btn-default btn-xs">
+                    <button class="btn">
                       <span>+</span>
                     </button>
                   </td>
@@ -119,6 +119,52 @@
                     </div>
                   </td>
                 </tr>
+
+                <!--  user -->
+                <tr data-bs-toggle="collapse" data-bs-target="#order1">
+                  <td>
+                    <button class="btn btn-default btn-xs">
+                      <span>+</span>
+                    </button>
+                  </td>
+                  <td>Hassan</td>
+                  <td>$100</td>
+                </tr>
+
+                <!-- user orders -->
+                <tr>
+                  <td colspan="12" class="hiddenRow">
+                    <div class="collapse" id="demo1">
+                      <table class="table table-dark table-striped">
+                        <thead>
+                          <tr>
+                            <th></th>
+                            <th>Order Date</th>
+                            <th>Amount</th>
+                          </tr>
+                        </thead>
+
+                        <tbody>
+                          <tr
+                            data-bs-toggle="collapse"
+                            data-bs-target="#demo10"
+                          >
+                            <td>+</td>
+                            <td>Wed Mar 02 2022 16:43:23</td>
+                            <td>$10</td>
+                          </tr>
+
+                          <!-- order details -->
+                          <tr>
+                            <td colspan="12" class="hiddenRow">
+                              <div id="demo10" class="collapse"></div>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </td>
+                </tr>
               </tbody>
             </table>
           </div>
@@ -127,5 +173,6 @@
     </div>
     <!-- BootStrap@5  -->
     <script src="./assets/bootstrap/js/bootstrap.bundle.js"></script>
+    <script src="./js/check.js"></script>
   </body>
 </html>
