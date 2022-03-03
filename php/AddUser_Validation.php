@@ -57,5 +57,5 @@ move_uploaded_file($file_tmp, $profileImage);
 $d1 = new DbManager();
 $stmt = $d1->INSERTUSER($_REQUEST["firstname"], $_REQUEST["lastname"], $_REQUEST["password"], $_REQUEST["email"], $profileImage);
 if ($stmt->rowCount()) {
-    header("Location: FillUsersTable.php");
+    header("Location: ../HTML/FillUsersTable.html");
 }
