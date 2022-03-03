@@ -30,6 +30,9 @@ if ($_REQUEST["password"] != $_REQUEST["confirmpassword"]) {
 if (empty($_REQUEST["email"]) || $_REQUEST["email"] == "") {
     $errors["email"] = "email_is_empty";
 }
+if (!file_exists($_FILES['img']['tmp_name']) || !is_uploaded_file($_FILES['img']['tmp_name'])) {
+    $errors["img"] = "Profile_is_empty";
+}
 $str = "AddUser.php?";
 if (count($errors) > 0) {
     foreach ($errors as $k => $val) {
@@ -45,7 +48,7 @@ $file_type = $_FILES['img']['type'];
 $extention = explode("/", $file_type)[1];
 $extensions = array("jpeg", "jpg", "png", "gif");
 
-if (in_array(strtolower( $extention ) , $extensions) === false) {
+if (in_array(strtolower($extention), $extensions) === false) {
     $errors["img"] = "Please Enter a Valid Extension JPEG, jpg, gif or PNG file.";
 }
 $profileImage = "../assets/ProfileImages/" . $_REQUEST["firstname"] . "." . $extention;

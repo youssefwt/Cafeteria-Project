@@ -30,6 +30,9 @@ if ($_REQUEST["password"] != $_REQUEST["confirmpassword"]) {
 if (empty($_REQUEST["email"]) || $_REQUEST["email"] == "") {
     $errors["email"] = "email_is_empty";
 }
+if (!file_exists($_FILES['img']['tmp_name']) || !is_uploaded_file($_FILES['img']['tmp_name'])) {
+    $errors["img"] = "Profile_is_empty";
+}
 $str = "EditUser.php?";
 
 $file_name = $_FILES['img']['name'];
@@ -39,7 +42,7 @@ $file_type = $_FILES['img']['type'];
 $extention = explode("/", $file_type)[1];
 $extensions = array("jpeg", "jpg", "png", "gif");
 
-if (in_array(strtolower( $extention ) , $extensions) === false) {
+if (in_array(strtolower($extention), $extensions) === false) {
     $errors["img"] = "Please Enter a Valid Extension JPEG, jpg, gif or PNG file.";
 }
 $profileImage = "../assets/ProfileImages/" . $_REQUEST["firstname"] . "." . $extention;
@@ -49,7 +52,7 @@ if (count($errors) > 0) {
     foreach ($errors as $k => $val) {
         $str .= $k . "=" . $val . "&";
     }
-    header("Location: $str");
+    header("Location: ".$str."id=". $_COOKIE['id']."&");
     return;
 }
 
@@ -58,90 +61,3 @@ $stmt = $d1->UPDATEUSER($_REQUEST["firstname"], $_REQUEST["lastname"], $_REQUEST
 if ($stmt->rowCount()) {
     header("Location: FillUsersTable.php");
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// if (!filter_var($_REQUEST["email"], FILTER_VALIDATE_EMAIL)) {
-//     $errors["wrongformat"]="invalid_email";
-// }
-
-// $pattern = "/^[_a-zA-Z0-9-]+(\.[_a-zA-Z0-9-]+)*@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*(\.[a-zA-Z]{2,})$/";
-// if (!preg_match_all($pattern, $_REQUEST["email"], $matches)) {
-//     $errors["wrongformat"] = "invalid_email";
-// }
-// var_dump($_FILEs);
-// $file_name = $_FILES['img']['name'];
-// $file_tmp = $_FILES['img']['tmp_name'];
-// $file_type = $_FILES['img']['type'];
-
-// $extention = explode("/", $file_type)[1];
-// $extensions = array("jpeg", "jpg", "png", "gif");
-
-// if (in_array(strtolower( $extention ) , $extensions) === false) {
-//     $errors["file"] = "extension not allowed, please choose a JPEG, jpg, gif or PNG file.";
-// }
-
-
-
-// move_uploaded_file($file_tmp, "Images/" . $_REQUEST["name"] . "." . $extention);
-
-// try {
-//     $text = fopen("file.txt", "a");
-//     fwrite($text, $_REQUEST["email"] . ":");
-//     fwrite($text, $_REQUEST["password"] . ":");
-//     fwrite($text, PHP_EOL);
-//     fclose($text);
-// } catch (Exception $e) {
-//     // $e->get_message();
-// }
-
-// header("location: login.php");

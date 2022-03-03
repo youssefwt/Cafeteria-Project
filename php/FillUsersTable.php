@@ -41,25 +41,25 @@ $stmt = $d1->SELECTUSERS();
         
       </div>
 
-      <table class="mt-4 table table-dark table-striped table-hover">
+      <table class="mt-4 table table-dark table-striped table-hover w-75 m-auto">
         <thead>
           <tr>
-            <th scope="col">Name</th>
-            <th scope="col">Email</th>
-            <th scope="col">Profile Image</th>
-            <th scope="col">Edit</th>
-            <th scope="col">Delete</th>
+            <th scope="col" class='fs-5'>Name</th>
+            <th scope="col" class='fs-5'>Email</th>
+            <th scope="col" class='fs-5'>Profile Image</th>
+            <th scope="col" class='fs-5'>Edit</th>
+            <th scope="col" class='fs-5'>Delete</th>
           </tr>
         </thead>
         <tbody>
             <?php
             while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
                 echo "<tr>
-                <td>".$row["finame"]."</td>
-                <td>".$row["email"]."</td>
-                <td><img src='".$row["image_url"]."' alt='' class='img-thumbnail img-fluid' style='display:block; width:70px; height:70px; margin: auto;'></td>
-                <td><a class='btn btn-warning' href='EditUser.php?id=".$row["id"]."'> Update</a></td>
-                <td><a class='btn btn-danger' href='DeleteUser.php?id=".$row["id"]."'> Delete</a></td></tr>";
+                <td class='fs-5'>".$row["finame"]." ".$row["lname"]."</td>
+                <td class='fs-5'>".$row["email"]."</td>
+                <td class='fs-5'><img src='".$row["image_url"]."' alt='' class='img-thumbnail img-fluid' style='display:block; width:70px; height:70px; margin: auto;'></td>
+                <td class='fs-5'><a class='btn btn-warning' href='EditUser.php?id=".$row["id"]."'> Update</a></td>
+                <td class='fs-5'><a class='btn btn-danger' href='DeleteUser.php?id=".$row["id"]."'> Delete</a></td></tr>";
             }
             ?>
 
