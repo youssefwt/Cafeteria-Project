@@ -10,6 +10,17 @@ datePicker.forEach((element) => {
   });
 }); /* end */
 
+/* get chosen date range */
+/*TODO don't forget !!!! */
+/* end */
+
+/* filter button */
+let filterBtn = document.querySelector(".filterbtn");
+filterBtn.addEventListener("click", function () {
+  console.log(dateFrom);
+});
+/* end */
+
 /* rendering order table */
 let orderTable = document.getElementById("orders-container");
 for (let i = 0; i < orders.length; i++) {
@@ -33,7 +44,7 @@ for (let i = 0; i < orders.length; i++) {
                               </tr>
                             </tbody>
                           </table>
-                          <div class="order-items status"></div>`;
+                          <div class="order-items show"></div>`;
 } /* end */
 
 /* show or hide order items */
@@ -49,23 +60,28 @@ toggleBtn.forEach((element) => {
       this.parentElement.parentElement.parentElement.parentElement
         .nextElementSibling;
     console.log(target);
-    target.classList.toggle("status");
     target.innerHTML = "";
     renderOrderItems(target);
+    target.classList.toggle("show");
   });
 }); /* end */
 
 /* rendering order items */
 function renderOrderItems(target) {
   for (let i = 0; i < item.length; i++) {
-    console.log(item[i]);
-
     target.innerHTML += `<div class="item">
-                          <img src="../assets/images/test-images/img1.jpeg" alt="" />
+                          <div class="img-container">
+                            <img src="../assets/images/test-images/img1.jpeg" alt="" />
+                            <div class="item-price"> 20 LE </div>
+                          </div>
                           <p>${item[i]}</p>
-                          <p>${quantity[i]}</p>
+                          <p>x ${quantity[i]}</p>
                         </div>`;
   }
+  target.innerHTML += `<div class="total"
+                        <p>total</p>
+                        <p>150 egp </p>
+                      </div>`;
 } /* end */
 
 /* action button based on status */
