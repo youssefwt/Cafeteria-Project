@@ -59,5 +59,5 @@ if (count($errors) > 0) {
 $d1 = new DbManager();
 $stmt = $d1->UPDATEUSER($_REQUEST["firstname"], $_REQUEST["lastname"], $_REQUEST["password"], $_REQUEST["email"], $profileImage, $_COOKIE["id"]);
 if ($stmt->rowCount()) {
-    header("Location: FillUsersTable.php");
+    header("Location: ../HTML/FillUsersTable.html");
 }

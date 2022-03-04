@@ -106,10 +106,9 @@ class DbManager
     // Methods for Users Table
     function SELECTUSERS()
     {
-        $query = "SELECT * FROM `users`";
+        $query = "SELECT * FROM `Users`";
         $stmt = $this->pdo->prepare($query);
-        $stmt->execute();
-        return $stmt;
+        $this->executeToJson($stmt);
     }
     function FETCHUSER(...$args)
     {
