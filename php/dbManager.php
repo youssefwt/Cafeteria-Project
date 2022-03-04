@@ -2,7 +2,7 @@
 
 class DbManager
 {
-    private $dsn = 'mysql:dbname=CafeteriaDB;host=127.0.0.1;port=3306;';
+    private $dsn = 'mysql:dbname=cafeteriadb;host=127.0.0.1;port=3306;';
     private $user = 'root';
     private $password = '123456';
     public $pdo;
@@ -52,7 +52,7 @@ class DbManager
 
     public function getOrdersByUser($userId)
     {
-        $query = "SELECT o.id , o.datetime , o.total 
+        $query = "SELECT o.id , o.datetime , o.total ,o.status
                 FROM Users u , Orders o 
                 WHERE u.id=:userId;";
 
@@ -139,6 +139,22 @@ class DbManager
         $stmt = $this->pdo->prepare($query);
         $stmt->execute($args);
         return $stmt;
+    }
+
+    public function getOrderItems($orderId)
+    {
+        $query = "SELECT p.name, p.Price, p.image_url, op.quantity
+                FROM Orders o , order_product op , products p
+                WHERE op.order_id=:orderId and o.id=op.order_id and p.id=op.prd_id; ";
+
+        $stmt = $this->pdo->prepare($query);
+        $stmt->execute(["orderId" => $orderId]);
+        $result = $stmt->fetchAll(PDO::FETCH_OBJ);
+
+        //close query
+        $stmt->closeCursor();
+        $resultAsJson = json_encode($result);
+        echo $resultAsJson;
     }
     // End of Methods for Users Table
 }

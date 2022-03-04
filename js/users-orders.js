@@ -1,6 +1,9 @@
-let orders = [1, 1];
-let item = ["nescafe", "tea", "sahlab", "lemon", "batee5"];
-let quantity = [1, 3, 1, 2, 1];
+/**data for testing */
+// let orders = [1, 1];
+// let item = ["nescafe", "tea", "sahlab", "lemon", "batee5"];
+// let quantity = [1, 3, 1, 2, 1];
+
+/**getting user orders */
 
 /* turn input type text to date type */
 let datePicker = document.querySelectorAll(".date-picker");
@@ -18,75 +21,96 @@ datePicker.forEach((element) => {
 let filterBtn = document.querySelector(".filterbtn");
 filterBtn.addEventListener("click", function () {
   console.log(dateFrom);
-});
-/* end */
+}); /* end */
 
 /* rendering order table */
-let orderTable = document.getElementById("orders-container");
-for (let i = 0; i < orders.length; i++) {
-  orderTable.innerHTML += `<table class="table table-dark table-striped">
+async function renderOrders() {
+  let userOrders = await getUserOrders();
+  let orderTable = document.getElementById("orders-container");
+  for (let order of userOrders) {
+    orderTable.innerHTML += `<table class="table table-dark table-striped">
                             <thead class="fs-2">
                               <tr>
                                 <th scope="col">
-                                  order id 17 &emsp; <i class="fas fa-plus"></i>
+                                  order id ${
+                                    order.id
+                                  } &emsp; <i class="fas fa-plus" onclick="clickToExpand(${
+      order.id
+    },this)"></i>
                                 </th>
-                                <th scope="col" class="status">status</th>
+                                <th scope="col" >status</th>
                                 <th scope="col">amount</th>
                                 <th scope="col">action</th>
                               </tr>
                             </thead>
                             <tbody>
                               <tr>
-                                <td>made on &ensp; 2019/2/2 10:30 AM</td>
-                                <td>out for delivery</td>
-                                <td>55 egp</td>
-                                <td> </td>
+                                <td>made on &ensp; ${order.datetime}</td>
+                                <td>${order.status}</td>
+                                <td>${order.total}</td>
+                                <td>${
+                                  order.status == "processing"
+                                    ? '<button class="btn btn-warning fs-4">cancel</button>'
+                                    : ""
+                                }</td>
                               </tr>
                             </tbody>
                           </table>
-                          <div class="order-items show"></div>`;
+                          <div class="order-items show" id="order${
+                            order.id
+                          }"></div>`;
+  }
 } /* end */
 
-/* show or hide order items */
-let toggleBtn = document.querySelectorAll("i");
-toggleBtn.forEach((element) => {
-  /* switch + - icons */
-  element.addEventListener("click", function () {
-    if (this.className == "fas fa-plus") this.className = "fas fa-minus";
-    else this.className = "fas fa-plus";
+/**getting orders from DB */
+async function getUserOrders() {
+  console.log("in get user orders");
+  let userOrders = await (
+    await fetch("../php/controllers/getUserOrders.php?userId=" + 1)
+  ).json();
+  console.log(userOrders);
+  return userOrders;
+}
 
-    /* accessing order-items div */
-    let target =
-      this.parentElement.parentElement.parentElement.parentElement
-        .nextElementSibling;
-    console.log(target);
-    target.innerHTML = "";
-    renderOrderItems(target);
-    target.classList.toggle("show");
-  });
-}); /* end */
+renderOrders();
+/* end */
+
+/* show or hide order items */
+function clickToExpand(id, i) {
+  /* switch + - icons */
+  if (i.className == "fas fa-plus") i.className = "fas fa-minus";
+  else i.className = "fas fa-plus";
+  console.log("icon clicked");
+
+  /* accessing order-items div */
+  target = document.getElementById(`order${id}`);
+  console.log(target);
+  target.innerHTML = "";
+  renderOrderItems(target, id);
+  target.classList.toggle("show");
+} /* end */
 
 /* rendering order items */
-function renderOrderItems(target) {
-  for (let i = 0; i < item.length; i++) {
+async function renderOrderItems(target, id) {
+  let orderItems = await getOrderItems(id);
+  for (let item of orderItems) {
     target.innerHTML += `<div class="item">
                           <div class="img-container">
                             <img src="../assets/images/test-images/img1.jpeg" alt="" />
-                            <div class="item-price"> 20 LE </div>
+                            <div class="item-price"> ${item.Price} </div>
                           </div>
-                          <p>${item[i]}</p>
-                          <p>x ${quantity[i]}</p>
+                          <p>${item.name}</p>
+                          <p>x ${item.quantity}</p>
                         </div>`;
   }
-  target.innerHTML += `<div class="total"
-                        <p>total</p>
-                        <p>150 egp </p>
-                      </div>`;
 } /* end */
 
-/* action button based on status */
-let orderStatus = document.querySelectorAll(".order-status");
-orderStatus.forEach((el) => {
-  if (el.innerText == "Processing")
-    el.nextElementSibling.nextElementSibling.innerHTML = `<button class="btn btn-warning fs-4">cancel</button>`;
-}); /* end */
+/**getting orders items from db */
+async function getOrderItems(id) {
+  console.log("in get user orders");
+  let orderItems = await (
+    await fetch("../php/controllers/getOrderItems.php?orderId=" + id)
+  ).json();
+  console.log(orderItems);
+  return orderItems;
+}
