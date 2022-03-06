@@ -33,6 +33,15 @@ class DbManager
         echo $resultAsJson;
     }
 
+    public function userExistence($email, $password){
+        $query = "SELECT * FROM users WHERE email='".$email."' AND password='".$password."';";
+        $stmt = $this->pdo->prepare($query);
+        $stmt->execute();
+        $result = $stmt->fetchAll();
+        $stmt->closeCursor();
+        return $result;
+    }
+
     public function getProducts()
     {
         $query = "SELECT * FROM Products";
