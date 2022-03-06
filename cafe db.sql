@@ -91,6 +91,7 @@ ADD CONSTRAINT `product_category_fk`
   ON UPDATE NO ACTION;
 
 
+ALTER TABLE cafeteriadb.products ADD COLUMN category_name varchar(100);
 
 # specifying enumerates
 
@@ -99,3 +100,11 @@ ALTER TABLE cafeteriadb.users MODIFY COLUMN role enum("admin", "user") DEFAULT "
 ALTER TABLE cafeteriadb.orders MODIFY COLUMN by_admin enum("yes", "no") DEFAULT "no";
 
 
+
+# IN CASE category id was added, use following
+
+ALTER TABLE cafeteriadb.products DROP CONSTRAINT product_category_fk;
+
+ALTER TABLE cafeteriadb.products DROP COLUMN category_id;
+
+ALTER TABLE cafeteriadb.category DROP COLUMN id;
