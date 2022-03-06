@@ -92,4 +92,10 @@ ADD CONSTRAINT `product_category_fk`
 
 
 
+# specifying enumerates
+
+ALTER TABLE cafeteriadb.users MODIFY COLUMN role enum("admin", "user") DEFAULT "user";
+
+ALTER TABLE cafeteriadb.orders MODIFY COLUMN by_admin enum("yes", "no") DEFAULT "no";
+
 
