@@ -69,4 +69,33 @@ CREATE TABLE `Cart_Product` (
 
 
 
+# add category
+
+CREATE TABLE `category` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
+
+ALTER TABLE `CafeteriaDB`.`Products` 
+ADD COLUMN `category_id` INT NULL AFTER `desc`,
+ADD INDEX `product_category_fk_idx` (`category_id` ASC) VISIBLE;
+;
+ALTER TABLE `CafeteriaDB`.`Products` 
+ADD CONSTRAINT `product_category_fk`
+  FOREIGN KEY (`category_id`)
+  REFERENCES `CafeteriaDB`.`category` (`id`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
+
+
+
+# specifying enumerates
+
+ALTER TABLE cafeteriadb.users MODIFY COLUMN role enum("admin", "user") DEFAULT "user";
+
+ALTER TABLE cafeteriadb.orders MODIFY COLUMN by_admin enum("yes", "no") DEFAULT "no";
+
 
