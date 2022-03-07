@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="../css/sign_in.css">
+</head>
+
+<body>
+    <div class="container">
+        <div id="home" class="text-center mt-2">Home</div>
+        <div class="row justify-content-center myform">
+            <div class="col-10 col-md-6 col-lg-5 col-xl-6">
+                <form action="../php/sign_in.php" method="post" enctype="multipart/form-data">
+                    <div class="mb-3">
+                        <label for="email">E-mail</label>
+                        <input type="email" name="email" class="myinputs" id="email">
+                        <label id="email_label"></label>
+                    </div>
+                    <div>
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" name="password" class="myinputs" id="password">
+                        <label id="password_label"></label>
+                    </div>
+                    <div>
+                        <label id="wronginfo"></label>
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" class="btn">Login</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="../js/sign_in.js"></script>
+</body>
+
+</html>

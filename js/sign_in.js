@@ -1,10 +1,12 @@
 let params = new URLSearchParams(window.location.search);
 
 async function logged_or_not(){
-    let user = JSON.parse(await(await fetch('../php/controllers/logged_in.php')).text());
-    if(user.id){
-        console.log(user.id);
+    let user = 0;
+    if(await(await fetch('../php/controllers/logged_in.php')).text()){
+        user = JSON.parse(await(await fetch('../php/controllers/logged_in.php')).text());
     }
+    console.log(user);
+    return user;
 }
 
 logged_or_not();

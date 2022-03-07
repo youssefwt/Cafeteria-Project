@@ -2,7 +2,7 @@ let cards = document.getElementById("cards");
 let cart = document.getElementById("cart");
 let completeOrder = document.getElementById("complete_order");
 completeOrder.addEventListener("click", function(){
-    if(cart.children.length > 2){
+    if(cart.children.length > 3){
         // let Some = {};
         let Some = [];
         let allDivs = cart.children;
@@ -13,11 +13,12 @@ completeOrder.addEventListener("click", function(){
                 Some.push(div.children[2].value);
             }
         }
+        // Some["Room"] = document.getElementById("room").value;
+        Some.push("room");
+        Some.push(document.getElementsByTagName("select")[0].value);
         // Some["Total"] = parseInt(document.getElementById("Total").innerHTML.split(":")[1]);
-        Some.push("Total")
-        Some.push(parseInt(document.getElementById("Total").innerHTML.split(":")[1]));
         // let theQuery = JSON.stringify(Some);
-        location.assign(`../php/order.php?order=${Some}`);
+        location.assign(`../php/user_make_order.php?order=${Some}`);
     }
 })
 
