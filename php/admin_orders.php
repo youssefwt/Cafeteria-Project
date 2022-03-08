@@ -48,7 +48,7 @@
             $sql_product = "SELECT op.quantity, o.datetime, o.room, o.status, p.image_url, p.price, op.quantity, o.total
                 from orders o join order_product op on o.id = op.order_id
                 join products p on op.prd_id = p.id
-                where o.id = $id";
+                where o.id = $id;";
             $stmt_product = $conn->prepare($sql_product);
             $stmt_product->execute();
             $result_product = $stmt_product->fetchAll(PDO::FETCH_ASSOC);
