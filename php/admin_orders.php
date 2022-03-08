@@ -23,18 +23,16 @@
         $stmt_user->execute();
         $result_user = $stmt_user->fetchAll(PDO::FETCH_ASSOC);
 
-        
-
         foreach($result_user as $row_user){
             echo '<div class="order">';
             echo '<div class="header">';
             echo '<table>';
             echo '<tr>
-            <th>Order Date</th>
-            <th>Name</th>
-            <th>Room</th>
-            <th>Status</th>
-            </tr>';
+                <th>Order Date</th>
+                <th>Name</th>
+                <th>Room</th>
+                <th>Status</th>
+                </tr>';
             echo '<tr>';
             echo '<td>'. $row_user['time'].'</td>';
             echo '<td>'.$row_user['name'].'</td>';
@@ -43,7 +41,6 @@
             echo '</tr>';
             echo '</table>';
             echo '</div>';
-
 
             echo '<div class="body">';
 
@@ -62,8 +59,6 @@
                     echo '<span>'.$row_product['quantity'].'</span>';
                 echo "</div>";
             }
-            //<img src="items/1.jpg">
-            //echo "<img src='../items/".$row_user["image_url"]."'>";
             echo '</div>
             <div class="footer">
                 <span>Total: EGP ';
@@ -72,45 +67,10 @@
             </div>';
             echo '</div>';
         }
-
     }catch(PDOException $e){
         echo 'Connection failed: '. $e->getMessage();
     }
     ?>
 
-    <!--<div class="order">
-        <div class="header">
-            <table>
-                <tr>
-                    <th>Order Date</th>
-                    <th>Name</th>
-                    <th>Room</th>
-                    <th>Extension</th>
-                    <th>Status</th>
-                </tr>
-                <tr>
-                    <td>2022/03/02 22:26:13</td>
-                    <td>Youssef Gazzar</td>
-                    <td>2006</td>
-                    <td>1307</td>
-                    <td>Delivered</td>
-                </tr>
-            </table>
-        </div>
-        <div class="body">
-            <img src="items/1.jpg" alt="coffee">
-            <img src="items/2.jpg" alt="cinnabon">
-            <img src="items/3.jpg" alt="water">
-            <img src="items/1.jpg" alt="coffee">
-            <img src="items/2.jpg" alt="cinnabon">
-            <img src="items/3.jpg" alt="water">
-            <img src="items/1.jpg" alt="coffee">
-            <img src="items/2.jpg" alt="cinnabon">
-            <img src="items/3.jpg" alt="water">
-        </div>
-        <div class="footer">
-            <span>Total: EGP 89</span>
-        </div>
-    </div>-->
 </body>
 </html>
