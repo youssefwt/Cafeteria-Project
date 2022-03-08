@@ -45,24 +45,26 @@
             echo '<div class="body">';
 
             $id = $row_user['id'];
-            $sql_product = "SELECT op.quantity, o.datetime, o.room, o.status, p.image_url, op.quantity, o.total
+            $sql_product = "SELECT op.quantity, o.datetime, o.room, o.status, p.image_url, p.price, op.quantity, o.total
                 from orders o join order_product op on o.id = op.order_id
                 join products p on op.prd_id = p.id
                 where o.id = $id";
             $stmt_product = $conn->prepare($sql_product);
             $stmt_product->execute();
             $result_product = $stmt_product->fetchAll(PDO::FETCH_ASSOC);
-
+            $total = 0;
             foreach($result_product as $row_product){
                 echo "<div class='image'>";
                     echo "<img src='../items/".$row_product["image_url"]."'>";
-                    echo '<span>'.$row_product['quantity'].'</span>';
+                    echo '<span>'.$row_product['quantity']."x ".$row_product['price']."LE".'</span>';
+                    $total += $row_product['quantity'] * $row_product['price'];
                 echo "</div>";
             }
             echo '</div>
             <div class="footer">
                 <span>Total: EGP ';
-                echo $row_user["total"];
+                //echo $row_user["total"];
+                echo $total;
                 echo '</span>
             </div>';
             echo '</div>';
