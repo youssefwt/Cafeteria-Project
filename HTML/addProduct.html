@@ -16,9 +16,9 @@
     <div class="container w-50 mt-5 border rounded-3">
       <div class="row mt-4">
       
-        <form class="row" method="post"  action="../HTML/product_table.html" enctype="multipart/form-data" >
+        <form class="row" method="post"  action="../php/add_Product.php" enctype="multipart/form-data" >
         
-            <div class="col-11">
+            <div class="col-11">s
               <label for="inputProduct" class="form-label">Product</label>
               <input type="text" class="form-control" id="inputProduct" name="productName" placeholder="Tea">
               <label style="color: coral" id="labelProduct">
@@ -31,9 +31,10 @@
            
             <div class="col-md-11">
               <label for="inputCategory" class="form-label" >Category</label>
-              <select id="inputCategory" class="form-select" name="status">
-                <option selected>Hot Drinks</option>
-                <option>Soft Drinks</option>
+               <a href="addCategory.html" class="btn btn-info"  id="addCategory"> Add Category</a>
+              <select id="inputCategory" class="form-select" name="category_name">
+                <!-- <option selected>Hot Drinks</option>
+                <option>Soft Drinks</option> -->
               </select>
             </div>
           

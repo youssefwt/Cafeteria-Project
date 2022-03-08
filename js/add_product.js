@@ -30,6 +30,19 @@ function validatImg(){
          labelImg.innerHTML="";
          isValidImg=true;
      }}
+
+ async function getCategories(){
+     let Categories=await(await fetch("../php/controllers/getCategory.php")).json();
+     let inputCategory=document.getElementById('inputCategory');
+   
+     for( category of Categories){
+        inputCategory.innerHTML+=`
+           <option value="${category.name}">${category.name}</option>
+`
+     }
+ 
+}
+getCategories();
 submit.addEventListener("click",function(e){
     if(!(isValidImg || isValidName)){
      e.preventDefault();

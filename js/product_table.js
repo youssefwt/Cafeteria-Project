@@ -19,8 +19,7 @@ async  function initFunction(){
          <td>${product.Price}</td>
          <td><img src="../assets/images/test-images/${product.image_url}" alt="${product.name}" /></td>
          <td><a href='editProduct.html?id=${product.id}'>Edit</a></td></td>
-         <td><a href='deleteProduct.html?id=${product.id}'>Delete</a></td></td>
-
+         <td><a href='../php/deleteProduct.php?id=${product.id}'>Delete</a></td></td>
 
        </tr>
          
