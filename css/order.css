@@ -21,7 +21,7 @@ body {
     bottom: 20px;
 }
 
-.smth:hover {
+#complete_order:hover{
     background: #502502;
     color: #fff;
 }
@@ -44,6 +44,15 @@ body {
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
+    color: #502502;
+    background: #d3ad7f;
+    font-weight: bold;
+    border:none;
+}
+
+.button_of_adding:hover{
+    background: #502502;
+    color: #fff;
 }
 
 input[type=number]::-webkit-inner-spin-button {
@@ -71,5 +80,13 @@ input[type=number] {
     font-weight: bolder;
     position: absolute;
     bottom:80px;
+    margin:auto;
+}
+
+#room{
+    color:white;
+    font-weight: bolder;
+    position: absolute;
+    bottom:120px;
     margin:auto;
 }
