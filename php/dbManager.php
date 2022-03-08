@@ -111,7 +111,7 @@ class DbManager
 //methods for products table
     public function addProduct(...$args)
     {
-        $query = "INSERT INTO `products` (`name`, `Price`, `image_url`, `status`) VALUES(?,?,?,?)";
+        $query = "INSERT INTO `products` (`name`, `Price`, `image_url`, `category_name`) VALUES(?,?,?,?)";
         $stmt = $this->pdo->prepare($query);
         $stmt->execute($args);
     }
@@ -162,6 +162,11 @@ class DbManager
         $stmt=$this->pdo->prepare($query);
         $stmt->execute();
     }
+    public function delete_Record($table_name, $id){
+        $query = "DELETE FROM $table_name WHERE id=$id";
+        $stmt=$this->pdo->prepare($query);
+        $stmt->execute();
+    }
     public function fetch_img($id){
         $query ="SELECT `image_url` FROM products WHERE id= $id";
         $stmt = $this->pdo->prepare($query);
@@ -169,7 +174,20 @@ class DbManager
         $result = $stmt->fetchAll();
         return $result[0][0];
     }
-    
+    //category
+    public function add_Category($name){
+        $query="INSERT INTO category  VALUES('$name') ";
+        $stmt = $this->pdo->prepare($query);
+        $stmt->execute();
+   
+
+    }
+    public function get_All_Category(){
+        $query="SELECT * FROM category";
+        $stmt = $this->pdo->prepare($query);
+        $this->executeToJson( $stmt);
+      
+    }
     // Methods for Users Table
     function SELECTUSERS()
     {
@@ -223,4 +241,5 @@ class DbManager
         echo $resultAsJson;
     }
     // End of Methods for Users Table
+    
 }

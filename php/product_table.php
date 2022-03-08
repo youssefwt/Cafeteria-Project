@@ -1,6 +1,7 @@
 
 <?php
 
+
 include("dbManager.php");
 $db = new DbManager();
 

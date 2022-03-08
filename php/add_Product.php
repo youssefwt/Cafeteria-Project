@@ -1,4 +1,10 @@
 <?php
+ini_set('display_errors', 1);
+
+ini_set('display_startup_errors', 1);
+
+error_reporting(E_ALL);
+
 
 $file_name = $_FILES['img']['name'];
 
@@ -16,12 +22,15 @@ move_uploaded_file($file_tmp, "../assets/images/test-images/".$_POST["productNam
 
 include("dbManager.php");
 
+
+
 $db = new DbManager();
 
+var_dump($_POST);
 try {
    
-    $db->addProduct($_POST['productName'], $_POST['Price'], $the_picture, $_POST['status']);
-    header("Location: product_table.php");
+    $db->addProduct($_POST['productName'], $_POST['Price'], $the_picture, $_POST['category_name']);
+    header("Location:../HTML/product_table.html");
    
 } catch (PDOException $e) {
     echo 'Connection failed: ' . $e->getMessage();
