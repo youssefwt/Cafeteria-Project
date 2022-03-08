@@ -13,16 +13,19 @@
     <?php
     $dsn = 'mysql:dbname=cafeteriadb;host=localhost;port=3306;';
     $user = 'root';
-    $password = 'password';
+    $password = 'hatory0000';
     try{
         $conn = new PDO($dsn, $user, $password);
 
-        $sql = 'select o.datetime, o.total, o.status, o.room, u.fname, u.lname from orders o join users u on o.user_id = u.id;';
+        $sql_user = 'SELECT o.id, o.datetime as time, concat(u.fname, " ", u.lname) as name, o.room, o.status, o.total
+            FROM orders o join users u on o.user_id=u.id;';
+        $stmt_user = $conn->prepare($sql_user);
+        $stmt_user->execute();
+        $result_user = $stmt_user->fetchAll(PDO::FETCH_ASSOC);
+
         
-        $stmt = $conn->prepare($sql);
-        $stmt->execute();
-        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        foreach($result as $row){
+
+        foreach($result_user as $row_user){
             echo '<div class="order">';
             echo '<div class="header">';
             echo '<table>';
@@ -30,27 +33,41 @@
             <th>Order Date</th>
             <th>Name</th>
             <th>Room</th>
-            <th>Extension</th>
             <th>Status</th>
             </tr>';
             echo '<tr>';
-            echo '<td>'. $row['datetime'].'</td>';
-            $name = $row['fname']." ".$row["lname"];
-            echo '<td>'.$name.'</td>';
-            echo '<td>'.$row['room'].'</td>';
-            echo '<td>'."TBD".'</td>';
-            echo '<td>'.$row['status'].'</td>';
+            echo '<td>'. $row_user['time'].'</td>';
+            echo '<td>'.$row_user['name'].'</td>';
+            echo '<td>'.$row_user['room'].'</td>';
+            echo '<td>'.$row_user['status'].'</td>';
             echo '</tr>';
             echo '</table>';
             echo '</div>';
-            echo '<div class="body">
-            <img src="items/1.jpg" alt="coffee">
-            <img src="items/2.jpg" alt="cinnabon">
-            <img src="items/3.jpg" alt="water">
-            </div>
+
+
+            echo '<div class="body">';
+
+            $id = $row_user['id'];
+            $sql_product = "SELECT op.quantity, o.datetime, o.room, o.status, p.image_url, op.quantity, o.total
+                from orders o join order_product op on o.id = op.order_id
+                join products p on op.prd_id = p.id
+                where o.id = $id";
+            $stmt_product = $conn->prepare($sql_product);
+            $stmt_product->execute();
+            $result_product = $stmt_product->fetchAll(PDO::FETCH_ASSOC);
+
+            foreach($result_product as $row_product){
+                echo "<div class='image'>";
+                    echo "<img src='../items/".$row_product["image_url"]."'>";
+                    echo '<span>'.$row_product['quantity'].'</span>';
+                echo "</div>";
+            }
+            //<img src="items/1.jpg">
+            //echo "<img src='../items/".$row_user["image_url"]."'>";
+            echo '</div>
             <div class="footer">
                 <span>Total: EGP ';
-                echo $row["total"];
+                echo $row_user["total"];
                 echo '</span>
             </div>';
             echo '</div>';
