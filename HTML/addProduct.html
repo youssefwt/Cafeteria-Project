@@ -11,30 +11,32 @@
     <link rel="stylesheet" href="../css/addProduct.css">
 </head>
 <body>
-  
+ 
+  <div  class="d-flex justify-content-end align-items-center">
+   
+    <a href="addCategory.html" class="mx-5 mt-3 px-3 btn btn-primary btn-lg "> Add Category</a>
+
+  </div>
    
     <div class="container w-50 mt-5 border rounded-3">
       <div class="row mt-4">
       
         <form class="row" method="post"  action="../php/add_Product.php" enctype="multipart/form-data" >
         
-            <div class="col-11">s
+            <div class="col-11">
               <label for="inputProduct" class="form-label">Product</label>
-              <input type="text" class="form-control" id="inputProduct" name="productName" placeholder="Tea">
+              <input type="text" class="form-control" id="inputProduct" name="productName" placeholder="Product name">
               <label style="color: coral" id="labelProduct">
       
             </div>
             <div class="col-11">
               <label for="inputPrice" class="form-label" name="Price">Price</label>
-              <input type="number" class="form-control" id="inputPrice" name="Price" placeholder="5">
+              <input type="number" class="form-control" id="inputPrice" name="Price" placeholder="Product price ">
             </div>
            
             <div class="col-md-11">
               <label for="inputCategory" class="form-label" >Category</label>
-               <a href="addCategory.html" class="btn btn-info"  id="addCategory"> Add Category</a>
-              <select id="inputCategory" class="form-select" name="category_name">
-                <!-- <option selected>Hot Drinks</option>
-                <option>Soft Drinks</option> -->
+                           <select id="inputCategory" class="form-select" name="category_name">
               </select>
             </div>
           

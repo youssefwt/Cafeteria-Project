@@ -11,15 +11,18 @@ async  function initFunction(){
 
 //  function Product_table($table_name, ...$args){
      function Product_table(products){
+       
     for (const product of products) {
         
         tBody.innerHTML+=`
-       <tr> 
-         <td>${product.name}</td>
-         <td>${product.Price}</td>
-         <td><img src="../assets/images/products/${product.image_url}" alt="${product.name}" /></td>
-         <td><a href='editProduct.html?id=${product.id}'>Edit</a></td></td>
-         <td><a href='../php/deleteProduct.php?id=${product.id}'>Delete</a></td></td>
+       <tr class='text-center'> 
+         <td class='fs-5'>${product.name}</td>
+         <td class='fs-5'>${product.Price}</td>
+         <td class='fs-5'><img src="../assets/images/products/${product.image_url}" style='width:100px; height:100px ;border-radius:50%' alt="${product.name}" /></td>
+         
+          <td class='fs-5'>${product.status}<td>
+        <td class='fs-5'><a  class='btn btn-warning' href='editProduct.html?id=${product.id}'>Edit</a></td></td>
+         <td class='fs-5'><a class='btn btn-danger' id='delet' href='../php/deleteProduct.php?id=${product.id}' onclick="return confirm('Are you sure?');">Delete</a></td></td>
 
        </tr>
          
