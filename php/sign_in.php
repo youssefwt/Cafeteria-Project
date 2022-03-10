@@ -37,3 +37,5 @@ session_start();
 $_SESSION['id'] = $user_or_not[0][0];
 $_SESSION['name'] = $user_or_not[0][1];
 $_SESSION['role'] = $user_or_not[0][5];
+
+header("Location:../index.html");

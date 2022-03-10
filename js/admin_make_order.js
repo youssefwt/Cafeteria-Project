@@ -37,7 +37,6 @@ async function get_products(){
         console.log(search.value)
         renderProductsWithCondition(products,search.value);
     })
-
 }
 
 function renderProductsWithCondition(products, value){
@@ -172,5 +171,19 @@ async function GetallUsers(){
 
 get_products();
 GetallUsers();
+
+async function logged_or_not(){
+    let user = 0;
+    if(await(await fetch('../php/controllers/logged_in.php')).text()){
+        user = JSON.parse(await(await fetch('../php/controllers/logged_in.php')).text());
+    }
+    return user;
+}
+
+logged_or_not().then((result)=>{
+    if(result.role != "admin"){
+        location.assign("../Html/user_make_order.html");
+    }
+});
 
 
