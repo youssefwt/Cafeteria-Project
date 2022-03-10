@@ -62,12 +62,11 @@ class DbManager
     }
 
     public function getLastProductsOrdered($userID){
-        $query = "SELECT o.id , o.datetime FROM Users u , Orders o  WHERE u.id=:userId;";
+        $query = "SELECT id FROM orders WHERE user_id=:user_id ORDER BY id DESC LIMIT 1;";
         $stmt = $this->pdo->prepare($query);
-        $stmt->execute(["userId" => 1]);
-        $result = $stmt->fetchAll(PDO::FETCH_OBJ);
-        $order_id = $result[count($result)-1]->id;
-        $query = "SELECT prd_id FROM order_product WHERE order_id = $order_id";
+        $stmt->execute([":user_id" => $userID]);
+        $result = $stmt->fetch(PDO::FETCH_COLUMN);
+        $query = "SELECT prd_id FROM order_product WHERE order_id = $result";
         $stmt = $this->pdo->prepare($query);
         $stmt->execute();
         $result = $stmt->fetchAll(PDO::FETCH_COLUMN);

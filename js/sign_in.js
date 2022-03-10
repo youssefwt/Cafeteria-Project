@@ -4,12 +4,15 @@ async function logged_or_not(){
     let user = 0;
     if(await(await fetch('../php/controllers/logged_in.php')).text()){
         user = JSON.parse(await(await fetch('../php/controllers/logged_in.php')).text());
-        console.log(user);
     }
     return user;
 }
 
-logged_or_not();
+logged_or_not().then((result)=>{
+        if(result){
+            location.assign("../index.html")
+        }
+}).catch(console.log("do login you idiot"));
 
 if(params.has('email')){
     let email = document.getElementById("email_label");

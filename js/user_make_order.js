@@ -161,6 +161,7 @@ let lastOrder = document.getElementById('last_order');
 
 async function getLastOrder(){
     let order = await (await fetch("../php/controllers/getUserOrdersAbdallah.php")).json();
+    console.log(order);
     for (const orderElement of order) {
         lastOrder.innerHTML += `
             <div class="col-3 last_order_card text-center p-1 m-2">

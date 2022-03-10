@@ -19,7 +19,6 @@ foreach ($order as $key=>$value){
     }
 }
 
-var_dump($sum);
 //for ($i =0; $i < count($order) - 2;$i+=2){
 //    $price = $db->get_price($order[$i]);
 //    if($price) {
