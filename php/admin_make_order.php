@@ -4,13 +4,13 @@ if(!isset($_SESSION['id']) || !isset($_GET['order'])){
     header("Location:../index.html");
     return;
 }
-
+//|| $_SESSION['role'] != 'admin'
 include("dbManager.php");
 $order = json_decode($_GET['order']);
 $db = new DbManager();
 $sum = 0;
 foreach ($order as $key=>$value){
-    if($key == "room" || $key=="notes"){
+    if($key == "room" || $key=="notes" || $key =="id"){
         continue;
     }
     $price = $db->get_price($key);
@@ -26,6 +26,7 @@ var_dump($sum);
 //        $sum += $price[0][0] * $order[$i + 1];
 //    }
 //}
-$by_admin ="no";
-$db->user_make_order($sum, $_SESSION['id'], $order->room, $order->notes, $by_admin , $order);
-header("Location:../index.html");
+$by_admin ="yes";
+$db->user_make_order($sum, $order->id, $order->room, $order->notes, $by_admin, $order);
+header("Location:../Html/users-orders.html");
+

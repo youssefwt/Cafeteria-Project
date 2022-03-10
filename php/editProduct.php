@@ -14,7 +14,7 @@ $extensions= array("jpeg","jpg","png", "gif");
 $the_picture = $_REQUEST["productName"].".".$extention;
 // var_dump($the_picture);
 
-move_uploaded_file($file_tmp, "../assets/images/test-images/".$_POST["productName"].".".$extention);
+move_uploaded_file($file_tmp, "../assets/images/products/".$_POST["productName"].".".$extention);
 
 include("dbManager.php");
 

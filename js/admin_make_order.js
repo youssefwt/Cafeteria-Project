@@ -15,12 +15,13 @@ completeOrder.addEventListener("click", function(){
         }
         Some["notes"] = document.getElementById("note").value;
         Some["room"] = document.getElementsByTagName("select")[0].value;
+        Some['id']= document.getElementById('users').value;
         console.log(Some);
         Some = JSON.stringify(Some);
         console.log(Some);
         // Some.push(document.getElementById("note").value)
         // Some.push(document.getElementsByTagName("select")[0].value);
-        location.assign(`../php/user_make_order.php?order=${Some}`);
+        location.assign(`../php/admin_make_order.php?order=${Some}`);
     }
 })
 
@@ -157,21 +158,19 @@ function takeOne(e){
         e.target.previousSibling.value = parseInt(e.target.previousSibling.value) - 1;
 }
 
-let lastOrder = document.getElementById('last_order');
+let users = document.getElementById('users');
 
-async function getLastOrder(){
-    let order = await (await fetch("../php/controllers/getUserOrdersAbdallah.php")).json();
-    for (const orderElement of order) {
-        lastOrder.innerHTML += `
-            <div class="col-3 last_order_card text-center p-1 m-2">
-                <!--<img class="last_order_card_image" src="../assets/images/products/${orderElement.image_url}" alt="${orderElement.name}" />
-                <div class="price fs-4 fs-1 my-1">${orderElement.Price} EGP</div>-->
-                <h3 class="my-2">${orderElement.name}</h3>
-            </div>`;
+async function GetallUsers(){
+    let user = await (await fetch("../php/controllers/getUsers.php")).json();
+    for (let userElement of user) {
+        console.log(userElement);
+        users.innerHTML += `
+            <option value="${userElement.id}">${userElement.finame}</option>
+        `;
     }
 }
 
 get_products();
-getLastOrder();
+GetallUsers();
 
 

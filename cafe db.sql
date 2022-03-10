@@ -108,3 +108,6 @@ ALTER TABLE cafeteriadb.products DROP CONSTRAINT product_category_fk;
 ALTER TABLE cafeteriadb.products DROP COLUMN category_id;
 
 ALTER TABLE cafeteriadb.category DROP COLUMN id;
+
+
+ALTER TABLE cafeteriadb.orders ADD COLUMN `notes` text AFTER `status`;

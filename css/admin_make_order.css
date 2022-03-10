@@ -9,8 +9,9 @@ body {
 }
 
 #cart{
-    border: 3px solid red;
+    border: 1px solid rgba(255, 255, 255, 0.3);
     position: relative;
+    min-height: 80vh;
 }
 
 #complete_order{
@@ -63,7 +64,9 @@ input[type=number] {
     -moz-appearance: textfield;
     appearance: textfield;
     width:20%;
-    background: gold;
+    background: #ffd480;
+    font-weight: bolder;
+    font-size:larger;
 }
 
 /*.plus_minus, .price{*/
@@ -83,6 +86,13 @@ input[type=number] {
     margin:auto;
 }
 
+#notes{
+    font-weight: bolder;
+    position: absolute;
+    bottom:170px;
+    margin:auto;
+}
+
 #room{
     color:white;
     font-weight: bolder;
@@ -90,3 +100,20 @@ input[type=number] {
     bottom:120px;
     margin:auto;
 }
+
+.last_order_card_image{
+    width:70%;
+    height:20%;
+    border-radius:50%;
+}
+
+.last_order_card{
+    border: 0.1rem solid rgba(255, 255, 255, 0.3);
+    color:white;
+    height:20%;
+}
+
+#last_order{
+    border-bottom: 2px solid coral;
+}
+

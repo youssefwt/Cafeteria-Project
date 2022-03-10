@@ -1,6 +1,8 @@
 <?php
-include "../dbManager.php";
-$d1 = new DbManager();
-$d1->SELECTUSERS();
-$d1->close();
+
+require_once("../dbManager.php");
+
+$db = new DbManager();
+$db->SELECTUSERS();
+$db->close();
 ?>
