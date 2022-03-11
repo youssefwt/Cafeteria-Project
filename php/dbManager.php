@@ -2,9 +2,9 @@
 
 class DbManager
 {
-    private $dsn = 'mysql:dbname=cafeteriadb;host=127.0.0.1;port=3306;';
-    private $user = 'abdallah';
-    private $password = 'root';
+    private $dsn = 'mysql:dbname=CafeteriaDB;host=127.0.0.1;port=3306;';
+    private $user = 'admin';
+    private $password = '12345678';
     public $pdo;
 
     public function __construct()
@@ -22,46 +22,49 @@ class DbManager
         $this->pdo = null;
     }
 
-    public function get_price($product){
+    public function get_price($product)
+    {
         $query = "SELECT price FROM products WHERE name=:product";
         $stmt = $this->pdo->prepare($query);
-        $stmt->execute([':product'=>$product]);
+        $stmt->execute([':product' => $product]);
         $result = $stmt->fetchAll();
         return $result;
     }
 
-    public function user_make_order($total, $user, $room, $notes, $by_admin, $orders){
-        try{
+    public function user_make_order($total, $user, $room, $notes, $by_admin, $orders)
+    {
+        try {
             $this->pdo->beginTransaction();
             $query = "INSERT INTO orders (datetime ,user_id, total, status, notes, by_admin, room) VALUES(:sometime, :u_id, :total, :status,:notes,:by_admin, :room)";
-            $time_now = date("y")."-".date("m")."-".date("d")." ".date("G:i:s");
+            $time_now = date("y") . "-" . date("m") . "-" . date("d") . " " . date("G:i:s");
             $deliver = "Out for Delivery";
             $stmt = $this->pdo->prepare($query);
-            $stmt->execute(['sometime'=>$time_now,':u_id'=>$user,':total'=>$total, ':status'=>$deliver,':notes'=>$notes, ':by_admin'=>$by_admin, ':room'=>$room]);
+            $stmt->execute(['sometime' => $time_now, ':u_id' => $user, ':total' => $total, ':status' => $deliver, ':notes' => $notes, ':by_admin' => $by_admin, ':room' => $room]);
             $order_id = $this->pdo->lastInsertId();
-            foreach ($orders as $key=>$value){
-                if($key == "room" || $key=="notes" || $key=="id"){
+            foreach ($orders as $key => $value) {
+                if ($key == "room" || $key == "notes" || $key == "id") {
                     continue;
                 }
                 $query = "INSERT INTO order_product VALUES(:order_id, :prd_id, :quantity)";
                 $stmt = $this->pdo->prepare($query);
-                $product_id=$this->get_product_id_by_name($key);
-                $stmt->execute([':order_id'=>$order_id, ':prd_id'=>$product_id, ':quantity'=>$value]);
+                $product_id = $this->get_product_id_by_name($key);
+                $stmt->execute([':order_id' => $order_id, ':prd_id' => $product_id, ':quantity' => $value]);
             }
-//            for($i = 0; $i < count($orders)-3;$i+=2){
-//                $query = "INSERT INTO order_product VALUES(:order_id, :prd_id, :quantity)";
-//                $stmt = $this->pdo->prepare($query);
-//                $product_id=$this->get_product_id_by_name($orders[$i]);
-//                $stmt->execute([':order_id'=>$order_id, ':prd_id'=>$product_id, ':quantity'=>$orders[$i+1]]);
-//            }
+            //            for($i = 0; $i < count($orders)-3;$i+=2){
+            //                $query = "INSERT INTO order_product VALUES(:order_id, :prd_id, :quantity)";
+            //                $stmt = $this->pdo->prepare($query);
+            //                $product_id=$this->get_product_id_by_name($orders[$i]);
+            //                $stmt->execute([':order_id'=>$order_id, ':prd_id'=>$product_id, ':quantity'=>$orders[$i+1]]);
+            //            }
             $this->pdo->commit();
-        }catch ( PDOExecption $e ){
+        } catch (PDOExecption $e) {
             print "Error!: " . $e->getMessage() . "</br>";
         }
         //date("y")."-".date("m")."-".date("d")." ".date("G:i:s")
     }
 
-    public function getLastProductsOrdered($userID){
+    public function getLastProductsOrdered($userID)
+    {
         $query = "SELECT id FROM orders WHERE user_id=:user_id ORDER BY id DESC LIMIT 1;";
         $stmt = $this->pdo->prepare($query);
         $stmt->execute([":user_id" => $userID]);
@@ -71,10 +74,10 @@ class DbManager
         $stmt->execute();
         $result = $stmt->fetchAll(PDO::FETCH_COLUMN);
         $query = "SELECT * FROM products WHERE id IN (";
-        for($i = 0; $i < count($result)-1; $i++){
-            $query.=$result[$i].",";
+        for ($i = 0; $i < count($result) - 1; $i++) {
+            $query .= $result[$i] . ",";
         }
-        $query.=$result[count($result) -1].")";
+        $query .= $result[count($result) - 1] . ")";
         $stmt = $this->pdo->prepare($query);
         $stmt->execute();
         $result = $stmt->fetchAll(PDO::FETCH_OBJ);
@@ -92,10 +95,11 @@ class DbManager
         echo $resultAsJson;
     }
 
-    public function userExistence($email, $password){
+    public function userExistence($email, $password)
+    {
         $query = "SELECT * FROM users WHERE email=:email AND password=:password";
         $stmt = $this->pdo->prepare($query);
-        $stmt->execute([':email'=>$email, ':password'=>$password]);
+        $stmt->execute([':email' => $email, ':password' => $password]);
         $result = $stmt->fetchAll();
         $this->close();
         return $result;
@@ -110,22 +114,22 @@ class DbManager
 
     public function getUsersTotal()
     {
-        $query = "SELECT o.user_id,u.finame , SUM(o.total) AS total FROM Users u , Orders o 
-                WHERE u.id=o.user_id
+        //to filter according to date  '2022-03-02 00:00:00'
+        $start = '2022-03-02 00:00:00';
+        $end = '2022-03-03 00:00:00';
+
+        $query = "SELECT o.user_id,u.finame , SUM(o.total) AS total FROM users u , orders o 
+                WHERE u.id=o.user_id and datetime between :start and :end
                 GROUP BY o.user_id";
 
         $stmt = $this->pdo->prepare($query);
-        $this->executeToJson($stmt);
-    }
 
-    public function getOrdersByUser($userId)
-    {
-        $query = "SELECT o.id , o.datetime , o.total ,o.status
-                FROM Users u , Orders o 
-                WHERE u.id=:userId;";
+        $stmt->execute([
+            "start" => $start,
+            "end" => $end
+        ]);
 
-        $stmt = $this->pdo->prepare($query);
-        $stmt->execute(["userId" => $userId]);
+        // $this->executeToJson($stmt);
         $result = $stmt->fetchAll(PDO::FETCH_OBJ);
 
         //close query
@@ -133,7 +137,34 @@ class DbManager
         $resultAsJson = json_encode($result);
         echo $resultAsJson;
     }
-//methods for products table
+
+    public function getOrdersByUser($userId)
+    {
+
+        //to filter according to date  '2022-03-02 00:00:00'
+        $start = '2022-03-02 00:00:00';
+        $end = '2022-03-03 00:00:00';
+
+        $query = "SELECT o.id , o.datetime , o.total ,o.status
+                FROM users u , orders o 
+                WHERE u.id=:userId and datetime between :start and :end;";
+
+        $stmt = $this->pdo->prepare($query);
+        $stmt->execute([
+            "userId" => $userId,
+            "start" => $start,
+            "end" => $end
+        ]);
+        $result = $stmt->fetchAll(PDO::FETCH_OBJ);
+
+
+
+        //close query
+        $stmt->closeCursor();
+        $resultAsJson = json_encode($result);
+        echo $resultAsJson;
+    }
+    //methods for products table
     public function addProduct(...$args)
     {
         $query = "INSERT INTO `products` (`name`, `Price`, `image_url`, `category_name`) VALUES(?,?,?,?)";
@@ -141,77 +172,79 @@ class DbManager
         $stmt->execute($args);
     }
 
-    public function  getProductById($id){
+    public function  getProductById($id)
+    {
         $query = "SELECT * FROM`products`
         WHERE id=:ProductId;";
-    
+
         $stmt = $this->pdo->prepare($query);
         $stmt->execute(["ProductId" => $id]);
         $result = $stmt->fetchAll(PDO::FETCH_OBJ);
-    
+
         //close query
         $stmt->closeCursor();
         $resultAsJson = json_encode($result);
         echo $resultAsJson;
     }
 
-    public function get_product_id_by_name($name){
+    public function get_product_id_by_name($name)
+    {
         $query = "SELECT id FROM products WHERE name='$name'";
-        $stmt= $this->pdo->prepare($query);
+        $stmt = $this->pdo->prepare($query);
         $stmt->execute();
-        $result= $stmt->fetchAll()[0][0];
+        $result = $stmt->fetchAll()[0][0];
         return $result;
     }
-    
-    public function get_From_Table($table_name, ...$args){
-     
-          $query = "SELECT * FROM $table_name;";
-          $stmt=$this->pdo->prepare($query);
-          $stmt->execute();
-        
-      }
-      public function update_Table($table_name, $id, ...$args){
+
+    public function get_From_Table($table_name, ...$args)
+    {
+
+        $query = "SELECT * FROM $table_name;";
+        $stmt = $this->pdo->prepare($query);
+        $stmt->execute();
+    }
+    public function update_Table($table_name, $id, ...$args)
+    {
         $query = "UPDATE $table_name SET ";
-        for($i = 0; $i < count($args); $i+=2){
+        for ($i = 0; $i < count($args); $i += 2) {
             $some_number = $i + 1;
-            if($some_number == count($args) - 1)
-            {
-                $query .= "`$args[$i]`"."="."'$args[$some_number]' ";
-            }
-            else{
-                $query .= "`$args[$i]`"."="."'$args[$some_number]', ";
+            if ($some_number == count($args) - 1) {
+                $query .= "`$args[$i]`" . "=" . "'$args[$some_number]' ";
+            } else {
+                $query .= "`$args[$i]`" . "=" . "'$args[$some_number]', ";
             }
         }
         $the_int_id = (int) $id;
         $query .= "WHERE id=$the_int_id;";
-        $stmt=$this->pdo->prepare($query);
+        $stmt = $this->pdo->prepare($query);
         $stmt->execute();
     }
-    public function delete_Record($table_name, $id){
+    public function delete_Record($table_name, $id)
+    {
         $query = "DELETE FROM $table_name WHERE id=$id";
-        $stmt=$this->pdo->prepare($query);
+        $stmt = $this->pdo->prepare($query);
         $stmt->execute();
     }
-    public function fetch_img($id){
-        $query ="SELECT `image_url` FROM products WHERE id= $id";
+    public function fetch_img($id)
+    {
+        $query = "SELECT `image_url` FROM products WHERE id= $id";
         $stmt = $this->pdo->prepare($query);
         $stmt->execute();
         $result = $stmt->fetchAll();
         return $result[0][0];
     }
     //category
-    public function add_Category($name){
-        $query="INSERT INTO category  VALUES('$name') ";
+    public function add_Category($name)
+    {
+        $query = "INSERT INTO category  VALUES('$name') ";
         $stmt = $this->pdo->prepare($query);
         $stmt->execute();
-   
-
     }
-    public function get_All_Category(){
-        $query="SELECT * FROM category";
+    public function get_All_Category()
+    {
+        $query = "SELECT * FROM category";
         $stmt = $this->pdo->prepare($query);
-        $this->executeToJson( $stmt);
-      
+        $this->executeToJson($stmt);
     }
     // Methods for Users Table
     function SELECTUSERS()
@@ -266,5 +299,5 @@ class DbManager
         echo $resultAsJson;
     }
     // End of Methods for Users Table
-    
+
 }
