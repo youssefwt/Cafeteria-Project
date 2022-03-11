@@ -112,11 +112,8 @@ class DbManager
         $this->executeToJson($stmt);
     }
 
-    public function getUsersTotal()
+    public function getUsersTotal($start, $end)
     {
-        //to filter according to date  '2022-03-02 00:00:00'
-        $start = '2022-03-02 00:00:00';
-        $end = '2022-03-03 00:00:00';
 
         $query = "SELECT o.user_id,u.finame , SUM(o.total) AS total FROM users u , orders o 
                 WHERE u.id=o.user_id and datetime between :start and :end
@@ -138,13 +135,8 @@ class DbManager
         echo $resultAsJson;
     }
 
-    public function getOrdersByUser($userId)
+    public function getOrdersByUser($userId, $start, $end)
     {
-
-        //to filter according to date  '2022-03-02 00:00:00'
-        $start = '2022-03-02 00:00:00';
-        $end = '2022-03-03 00:00:00';
-
         $query = "SELECT o.id , o.datetime , o.total ,o.status
                 FROM users u , orders o 
                 WHERE u.id=:userId and datetime between :start and :end;";
