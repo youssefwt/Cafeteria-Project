@@ -3,6 +3,9 @@
 require_once("../dbManager.php");
 
 $db = new DbManager();
-$db->SELECTUSERS();
+
+$db->get_All_Category();
+
 $db->close();
+
 ?>

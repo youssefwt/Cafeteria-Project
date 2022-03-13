@@ -69,4 +69,45 @@ CREATE TABLE `Cart_Product` (
 
 
 
+# add category
 
+CREATE TABLE `category` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
+
+ALTER TABLE `CafeteriaDB`.`Products` 
+ADD COLUMN `category_id` INT NULL AFTER `desc`,
+ADD INDEX `product_category_fk_idx` (`category_id` ASC) VISIBLE;
+;
+ALTER TABLE `CafeteriaDB`.`Products` 
+ADD CONSTRAINT `product_category_fk`
+  FOREIGN KEY (`category_id`)
+  REFERENCES `CafeteriaDB`.`category` (`id`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
+
+
+ALTER TABLE cafeteriadb.products ADD COLUMN category_name varchar(100);
+
+# specifying enumerates
+
+ALTER TABLE cafeteriadb.users MODIFY COLUMN role enum("admin", "user") DEFAULT "user";
+
+ALTER TABLE cafeteriadb.orders MODIFY COLUMN by_admin enum("yes", "no") DEFAULT "no";
+
+
+
+# IN CASE category id was added, use following
+
+ALTER TABLE cafeteriadb.products DROP CONSTRAINT product_category_fk;
+
+ALTER TABLE cafeteriadb.products DROP COLUMN category_id;
+
+ALTER TABLE cafeteriadb.category DROP COLUMN id;
+
+
+ALTER TABLE cafeteriadb.orders ADD COLUMN `notes` text AFTER `status`;

@@ -5,13 +5,14 @@ $errors =[];
 if (empty($_REQUEST["productName"])&& $_REQUEST["productName"]=="") {
     $errors['productName']="productName_is_empty";
 }
-var_dump($_FILES);
+// var_dump($_FILES);
 $file_name = $_FILES['img']['name'];
  var_dump($file_name);
 $file_tmp =$_FILES['img']['tmp_name'];
 $file_type=$_FILES['img']['type'];
 
 $extention = explode("/", $file_type)[1];
+var_dump($extention);
 
 $extensions= array("jpeg","jpg","png", "gif");
 

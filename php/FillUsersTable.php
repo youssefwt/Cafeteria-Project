@@ -22,9 +22,9 @@ $stmt = $d1->SELECTUSERS();
       <div class="container-fluid">
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
           <div class="navbar-nav">
-            <a class="nav-link" href="#">Home</a>
-            <a class="nav-link" href="#">Products</a>
-            <a class="nav-link active" href="#">Users</a>
+          <a class="nav-link" href="../index.html">Home</a>
+           <a class="nav-link" href="../HTML/product_table.html">Products</a>
+           <a class="nav-link active" href="FillUsersTable.php">Users</a>
             <a class="nav-link" href="#">Manual Order</a>
             <a class="nav-link">Checks</a>
           </div>
@@ -50,7 +50,7 @@ $stmt = $d1->SELECTUSERS();
       <tbody>
         <!-- 
                <?php
-                while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                while ($row=$stmt->fetch(PDO::FETCH_ASSOC)) {
                   echo "<tr>
                 <td class='fs-5'>" . $row["finame"] . " " . $row["lname"] . "</td>
                 <td class='fs-5'>" . $row["email"] . "</td>

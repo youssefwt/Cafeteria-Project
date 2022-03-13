@@ -1,0 +1,119 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700&display=swap");
+
+body {
+    background-image: url(../assets/images/landing-page/home-img.jpeg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+#cart{
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    position: relative;
+    min-height: 80vh;
+}
+
+#complete_order{
+    margin: 1px auto;
+    color: #502502;
+    background: #d3ad7f;
+    position: absolute;
+    bottom: 20px;
+}
+
+#complete_order:hover{
+    background: #502502;
+    color: #fff;
+}
+
+.my_card_image{
+    width:70%;
+    height:50%;
+    border-radius:50%;
+}
+
+.my_card{
+    border: 0.1rem solid rgba(255, 255, 255, 0.3);
+    color:white;
+}
+
+.button_of_adding{
+    border-radius:20px;
+    width:50%;
+    height:20%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    color: #502502;
+    background: #d3ad7f;
+    font-weight: bold;
+    border:none;
+}
+
+.button_of_adding:hover{
+    background: #502502;
+    color: #fff;
+}
+
+input[type=number]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+
+input[type=number] {
+    -moz-appearance: textfield;
+    appearance: textfield;
+    width:20%;
+    background: #ffd480;
+    font-weight: bolder;
+    font-size:larger;
+}
+
+/*.plus_minus, .price{*/
+/*    margin-left: 10px;*/
+/*    margin-right: 10px;*/
+/*}*/
+
+.order{
+    color:white;
+}
+
+#Total{
+    color:white;
+    font-weight: bolder;
+    position: absolute;
+    bottom:80px;
+    margin:auto;
+}
+
+#notes{
+    font-weight: bolder;
+    position: absolute;
+    bottom:170px;
+    margin:auto;
+}
+
+#room{
+    color:white;
+    font-weight: bolder;
+    position: absolute;
+    bottom:120px;
+    margin:auto;
+}
+
+.last_order_card_image{
+    width:70%;
+    height:20%;
+    border-radius:50%;
+}
+
+.last_order_card{
+    border: 0.1rem solid rgba(255, 255, 255, 0.3);
+    color:white;
+    height:20%;
+}
+
+#last_order{
+    border-bottom: 2px solid coral;
+}
+
