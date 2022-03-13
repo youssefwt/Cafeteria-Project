@@ -155,5 +155,21 @@ class DbManager
         $resultAsJson = json_encode($result);
         echo $resultAsJson;
     }
+
+    // public function getOrderItemsFilter($orderId)
+    // {
+    //     $query = "SELECT p.name, p.Price, p.image_url, op.quantity
+    //             FROM Orders o , order_product op , products p
+    //             WHERE op.order_id=:orderId and o.id=op.order_id and p.id=op.prd_id; ";
+
+    //     $stmt = $this->pdo->prepare($query);
+    //     $stmt->execute(["orderId" => $orderId]);
+    //     $result = $stmt->fetchAll(PDO::FETCH_OBJ);
+
+    //     //close query
+    //     $stmt->closeCursor();
+    //     $resultAsJson = json_encode($result);
+    //     echo $resultAsJson;
+    // }
     // End of Methods for Users Table
 }

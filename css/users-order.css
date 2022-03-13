@@ -210,7 +210,7 @@ td:first-child {
   margin-left: 4rem;
 }
 
-.show {
+.hide {
   height: 0;
   overflow: hidden;
   -webkit-transition: all 0.4s linear 0s !important;
