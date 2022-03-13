@@ -2,9 +2,9 @@
 
 class DbManager
 {
-    private $dsn = 'mysql:dbname=CafeteriaDB;host=127.0.0.1;port=3306;';
-    private $user = 'admin';
-    private $password = '12345678';
+    private $dsn = 'mysql:dbname=Cafeteriadb;host=127.0.0.1;port=3306;';
+    private $user = 'root';
+    private $password = '123456';
     public $pdo;
 
     public function __construct()
@@ -135,17 +135,19 @@ class DbManager
         echo $resultAsJson;
     }
 
-    public function getOrdersByUser($userId, $start, $end)
+    // public function getOrdersByUser($userId, $start, $end)
+    public function getOrdersByUser($userId)
     {
         $query = "SELECT o.id , o.datetime , o.total ,o.status
                 FROM users u , orders o 
-                WHERE u.id=:userId and datetime between :start and :end;";
+                WHERE u.id=:userId;";
+        // WHERE u.id=:userId and datetime between :start and :end;";
 
         $stmt = $this->pdo->prepare($query);
         $stmt->execute([
             "userId" => $userId,
-            "start" => $start,
-            "end" => $end
+            // "start" => $start,
+            // "end" => $end
         ]);
         $result = $stmt->fetchAll(PDO::FETCH_OBJ);
 
@@ -289,6 +291,15 @@ class DbManager
         $stmt->closeCursor();
         $resultAsJson = json_encode($result);
         echo $resultAsJson;
+    }
+
+    function cancelUserOrder($orderId)
+    {
+        $query = "DELETE FROM `order_product` WHERE order_id=:orderId;
+                  DELETE FROM `orders` WHERE `id` = :orderId";
+        $stmt = $this->pdo->prepare($query);
+        $stmt->execute(["orderId" => $orderId]);
+        return $stmt;
     }
 
     // public function getOrderItemsFilter($orderId)

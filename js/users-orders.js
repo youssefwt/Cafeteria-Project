@@ -30,15 +30,11 @@ async function renderOrders() {
   let userOrders = await getUserOrders();
   let orderTable = document.getElementById("orders-container");
   for (let order of userOrders) {
-    orderTable.innerHTML += `<table class="table table-dark table-striped">
+    orderTable.innerHTML += `<table class="table table-dark table-striped" id="table${order.id}">
                             <thead class="fs-2">
                               <tr>
                                 <th scope="col">
-                                  order id ${
-                                    order.id
-                                  } &emsp; <i class="fas fa-plus" onclick="clickToExpand(${
-      order.id
-    },this)"></i>
+                                  order id ${order.id} &emsp; <i class="fas fa-plus" onclick="clickToExpand(${order.id},this)"></i>
                                 </th>
                                 <th scope="col" >status</th>
                                 <th scope="col">amount</th>
@@ -48,19 +44,13 @@ async function renderOrders() {
                             <tbody>
                               <tr>
                                 <td>made on &ensp; ${order.datetime}</td>
-                                <td>${order.status}</td>
+                                <td  id="status${order.id}">${order.status}</td>
                                 <td>${order.total}</td>
-                                <td>${
-                                  order.status == "processing"
-                                    ? '<button class="btn btn-warning fs-4">cancel</button>'
-                                    : ""
-                                }</td>
+                                <td>${order.status == "processing" ? `<button class="btn btn-warning fs-4" onclick="cancelOrder(${order.id},this)">cancel</button>`: ""}</td>
                               </tr>
                             </tbody>
                           </table>
-                          <div class="order-items hide" id="order${
-                            order.id
-                          }"></div>`;
+                          <div class="order-items hide" id="order${order.id}"></div>`;
   }
 } /* end */
 
@@ -134,9 +124,7 @@ function renderOrderItems(orderItems1, target) {
 
 /**getting orders items from db */
 async function getOrderItems(id) {
-  let orderItems = await (
-    await fetch("../php/controllers/getOrderItems.php?orderId=" + id)
-  ).json();
+  let orderItems = await (await fetch("../php/controllers/getOrderItems.php?orderId=" + id)).json();
   // console.log(orderItems);
   return orderItems;
 }
@@ -156,3 +144,31 @@ async function getOrderItems(id) {
 //   // console.log(orderItems);
 //   return orderItems;
 // }
+
+
+
+async function cancelOrder(id, button) {
+  if(confirm("Are you sure you want to cancel this order")){
+    let status = document.getElementById(`status${id}`);
+    orderTable = document.getElementById(`table${id}`);
+    orderDiv = document.getElementById(`order${id}`);
+    
+    status.innerText="canceling order ...";
+    button.remove();
+    
+    // await
+    let test = await deleteOrder(id);
+    if(test)
+    setTimeout(removeOrder,1200);
+  }
+}
+
+function removeOrder(){
+  orderTable.remove();
+  orderDiv.remove();
+}
+
+async function deleteOrder(id){
+  let test = await fetch("../php/controllers/cancelOrder.php?orderId=" + id);
+  return test;
+}
