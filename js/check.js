@@ -1,13 +1,25 @@
 let checksTableBody = document.getElementById("checksTableBody");
+let startDateInput = document.getElementById("startDate");
+let endDateInput = document.getElementById("endDate");
 
 async function getUsersTotals() {
+  let start = startDateInput.value;
+  let end = endDateInput.value;
+
   let usersTotals = await (
-    await fetch("../php/controllers/getUsersTotal.php")
+    await fetch(
+      `../php/controllers/getUsersTotal.php?start=${start}&end=${end}`
+    )
   ).json();
   render(usersTotals);
 }
 
+function filter() {
+  getUsersTotals();
+}
+
 function render(usersTotals) {
+  checksTableBody.innerHTML = "";
   for (let data of usersTotals) {
     checksTableBody.innerHTML += `
         <!--  user -->
@@ -83,8 +95,13 @@ async function renderOrders(userId) {
 }
 
 async function getUserOrders(userId) {
+  let start = startDateInput.value;
+  let end = endDateInput.value;
+
   let userOrders = await (
-    await fetch("../php/controllers/getUserOrders.php?userId=" + userId)
+    await fetch(
+      `../php/controllers/getUserOrders.php?userId=${userId}&start=${start}&end=${end}`
+    )
   ).json();
   return userOrders;
 }
