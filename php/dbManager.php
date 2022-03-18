@@ -103,7 +103,7 @@ class DbManager
 
     public function getProducts()
     {
-        $query = "SELECT * FROM Products";
+        $query = "SELECT * FROM products";
         $stmt = $this->pdo->prepare($query);
         $this->executeToJson($stmt);
     }
