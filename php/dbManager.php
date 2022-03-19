@@ -135,19 +135,17 @@ class DbManager
         echo $resultAsJson;
     }
 
-    // public function getOrdersByUser($userId, $start, $end)
-    public function getOrdersByUser($userId)
+    public function getOrdersByUser($userId, $start, $end)
     {
         $query = "SELECT o.id , o.datetime , o.total ,o.status
                 FROM users u , orders o 
-                WHERE u.id=:userId;";
-        // WHERE u.id=:userId and datetime between :start and :end;";
+                 WHERE u.id=:userId and datetime between :start and :end;";
 
         $stmt = $this->pdo->prepare($query);
         $stmt->execute([
             "userId" => $userId,
-            // "start" => $start,
-            // "end" => $end
+            "start" => $start,
+            "end" => $end
         ]);
         $result = $stmt->fetchAll(PDO::FETCH_OBJ);
 
