@@ -1,14 +1,17 @@
-async function logged_or_not(){
-    let user = 0;
-    if(await(await fetch('../php/controllers/logged_in.php')).text()){
-        user = JSON.parse(await(await fetch('../php/controllers/logged_in.php')).text());
-    }
-    return user;
-}
-
+// async function logged_or_not(){
+//     let user = 0;
+//     if(await(await fetch('../php/controllers/logged_in.php')).text()){
+//         user = JSON.parse(await(await fetch('../php/controllers/logged_in.php')).text());
+//     }
+//     return user;
+// }
+//
 logged_or_not().then((result)=>{
     if(!result){
-        location.assign("../html/sign_in.html")
+            location.assign("../html/sign_in.html")
+    }
+    else if(result.role=="admin"){
+        location.assign("../html/admin_make_order.html")
     }
 })
 
