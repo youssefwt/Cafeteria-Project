@@ -50,8 +50,8 @@ resetBtn.addEventListener('click',function(){
 /**end */
 
 /* rendering order table */
-async function renderOrders() {
-  let userOrders = await getUserOrders();
+async function renderOrders(user) {
+  let userOrders = await getUserOrders(user);
   let orderTable = document.getElementById("orders-container");
   for (let order of userOrders) {
     orderTable.innerHTML += `<table class="table table-dark table-striped" id="table${order.id}">
@@ -79,15 +79,42 @@ async function renderOrders() {
 } /* end */
 
 /**getting orders from DB */
-async function getUserOrders() {
+async function getUserOrders(user) {
   let userOrders = await (
-    await fetch(`../php/controllers/getUserOrders.php?userId=1&start=${dateFrom}&end=${dateTo}`)
+    await fetch(`../php/controllers/getUserOrders.php?userId=${user.id}&start=${dateFrom}&end=${dateTo}`)
   ).json();
   // console.log(userOrders);
   return userOrders;
 }
 
-renderOrders();
+
+let user = {id:null, name:null, role:null};
+async function fillUser(){
+  try {
+    user = await (await fetch('../php/controllers/logged_in.php')).json();
+  }catch {
+    user = {id:null, name:null, role:null};
+  }
+  return user;
+}
+// console.log(user);
+// return user;
+
+function getCurrentUser(){
+  return user;
+}
+
+fillUser().then((user)=>{
+  if(user.role == 'user'){
+    renderOrders(user);
+  }else if(user.role == 'admin'){
+    location.assign('../php/admin_orders.php');
+  }
+  else {
+    location.assign('../');
+  }
+})
+
 /* end */
 
 /* show or hide order items */
@@ -119,8 +146,8 @@ function renderOrderItems(orderItems1, target) {
   for (let item of orderItems1) {
     target.innerHTML += `<div class="item">
                         <div class="img-container">
-                          <img src="../assets/images/test-images/img1.jpeg" alt="" />
-                          <div class="item-price"> ${item.Price} </div>
+                          <img style="max-width:100px;max-height: 100px;min-width:100px;min-height: 100px"  src="../assets/images/products/${item.image_url}" alt="" />
+                          <div class="item-price"> ${item.Price} E£</div>
                         </div>
                         <p>${item.name}</p>
                         <p>x ${item.quantity}</p>

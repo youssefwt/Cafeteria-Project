@@ -8,7 +8,7 @@ async function getUsersTotals() {
 
   let usersTotals = await (
     await fetch(
-      `../php/controllers/getUsersTotal.php?start=${start}&end=${end}`
+      `./php/controllers/getUsersTotal.php?start=${start}&end=${end}`
     )
   ).json();
   render(usersTotals);
@@ -100,14 +100,41 @@ async function getUserOrders(userId) {
 
   let userOrders = await (
     await fetch(
-      `../php/controllers/getUserOrders.php?userId=${userId}&start=${start}&end=${end}`
+      `./php/controllers/getUserOrders.php?userId=${userId}&start=${start}&end=${end}`
     )
   ).json();
   return userOrders;
 }
+async function renderOrderDetails(OrderId){
+  let orderItems = await getOrderItems(OrderId);
+  let itemsContainer = document.getElementById(`order${OrderId}`);
+  let innerhtml = `<div class="d-flex justify-content-around my-3">`
+  // itemsContainer.innerHTML = "<div class=\"d-flex justify-content-around my-3\">";
+  for (let data of orderItems){
+    console.log(data);
 
-async function renderOrderDetails(orderId) {
-  console.log(orderId);
+  innerhtml += `
+        <div
+          style="border: 1px solid white"
+          class="text-center p-2 border-1"
+        >
+          <img  style="max-width:100px;max-height: 100px;min-width:100px;min-height: 100px"
+            src="assets/images/products/${data.image_url}"
+            alt=""
+          />
+          <div>price: $<span>${data.Price}</span></div>
+          <div>quantity: <span>${data.quantity}</span></div>
+        </div>
+  `;
+  }
+  innerhtml += `</div>`;
+  itemsContainer.innerHTML = innerhtml;
+}
+
+async function getOrderItems(orderId) {
+  let orderItems = await (await fetch("./php/controllers/getOrderItems.php?orderId=" + orderId)).json();
+  console.log(orderItems);
+  return orderItems;
 }
 
 getUsersTotals();

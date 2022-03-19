@@ -3,8 +3,8 @@
 class DbManager
 {
     private $dsn = 'mysql:dbname=Cafeteriadb;host=127.0.0.1;port=3306;';
-    private $user = 'root';
-    private $password = '123456';
+    private $user = 'abdallah';
+    private $password = 'root';
     public $pdo;
 
     public function __construct()
@@ -37,7 +37,7 @@ class DbManager
             $this->pdo->beginTransaction();
             $query = "INSERT INTO orders (datetime ,user_id, total, status, notes, by_admin, room) VALUES(:sometime, :u_id, :total, :status,:notes,:by_admin, :room)";
             $time_now = date("y") . "-" . date("m") . "-" . date("d") . " " . date("G:i:s");
-            $deliver = "Out for Delivery";
+            $deliver = "processing";
             $stmt = $this->pdo->prepare($query);
             $stmt->execute(['sometime' => $time_now, ':u_id' => $user, ':total' => $total, ':status' => $deliver, ':notes' => $notes, ':by_admin' => $by_admin, ':room' => $room]);
             $order_id = $this->pdo->lastInsertId();

@@ -15,7 +15,7 @@
         <div id="home" class="text-center mt-2">Home</div>
         <div class="row justify-content-center myform">
             <div class="col-10 col-md-6 col-lg-5 col-xl-6">
-                <form action="../php/sign_in.php" method="post" enctype="multipart/form-data">
+                <form action="../php/sign_in.php" method="post">
                     <div class="mb-3">
                         <label for="email">E-mail</label>
                         <input type="email" name="email" class="myinputs" id="email">
@@ -30,7 +30,7 @@
                         <label id="wronginfo"></label>
                     </div>
                     <div class="text-center">
-                        <button type="submit" class="btn">Login</button>
+                        <input type="submit" class="btn" value="Login" />
                     </div>
                 </form>
             </div>

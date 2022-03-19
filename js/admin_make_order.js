@@ -92,6 +92,7 @@ function addToCart(e){
     let theActualProduct = e.target;
     let theDiv = document.createElement("div");
     theDiv.classList.add("my-3");
+    theDiv.classList.add("align-items-baseline");
     theDiv.classList.add("order");
     theDiv.classList.add("row");
     theDiv.dataset.value = product_name;
@@ -101,6 +102,8 @@ function addToCart(e){
     theLabel.style.fontWeight = "Bold";
     let plus = document.createElement("button");
     plus.innerHTML = "+";
+    plus.classList.add("btn");
+    plus.classList.add("btn-success");
     plus.classList.add("plus_minus");
     plus.classList.add("col-1");
     plus.addEventListener("click", addOne)
@@ -116,6 +119,8 @@ function addToCart(e){
     let minus = document.createElement("button");
     minus.innerHTML = "-";
     minus.classList.add("plus_minus");
+    minus.classList.add("btn");
+    minus.classList.add("btn-warning");
     minus.addEventListener("click", takeOne);
     minus.addEventListener("click",function(e){
         e.target.parentElement.children[4].innerHTML = parseInt(e.target.previousSibling.value) *parseInt(theActualProduct.parentElement.children[2].innerHTML) + "  EGP";
@@ -128,6 +133,8 @@ function addToCart(e){
     price.classList.add("col-3")
     let _delete = document.createElement("button");
     _delete.innerHTML = "X";
+    _delete.classList.add("btn");
+    _delete.classList.add("btn-danger");
     _delete.classList.add("col-1");
     _delete.addEventListener("click", function(e){
         cart.removeChild(e.target.parentElement);

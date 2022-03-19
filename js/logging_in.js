@@ -5,4 +5,3 @@ async function logged_or_not(){
     }
     return user;
 }
-
