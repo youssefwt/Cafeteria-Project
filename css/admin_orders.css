@@ -31,6 +31,8 @@ th, td{
 th{
     border-bottom: 1px solid black;
     color: red;
+    background-color: black;
+    opacity: .9;
 }
 td{
     text-align: center;
