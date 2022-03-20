@@ -3,8 +3,8 @@
 class DbManager
 {
     private $dsn = 'mysql:dbname=Cafeteriadb;host=127.0.0.1;port=3306;';
-    private $user = 'abdallah';
-    private $password = 'root';
+    private $user = 'root';
+    private $password = 'hatory0000';
     public $pdo;
 
     public function __construct()
@@ -316,5 +316,13 @@ class DbManager
     //     echo $resultAsJson;
     // }
     // End of Methods for Users Table
+
+
+    public function changeOrderStatus($status, $id){
+        $query = "update orders set status = :status where id = :orderId;";
+        $stmt = $this->pdo->prepare($query);
+        $stmt->execute(["orderId" => $id, "status" => $status]);
+        $stmt->closeCursor();
+    }
 
 }

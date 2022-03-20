@@ -13,12 +13,12 @@
 
     <?php
     $dsn = 'mysql:dbname=cafeteriadb;host=localhost;port=3306;';
-    $user = 'abdallah';
-    $password = 'root';
+    $user = 'root';
+    $password = 'hatory0000';
     try{
         $conn = new PDO($dsn, $user, $password);
 
-        $sql_user = 'SELECT o.id, o.datetime as time, concat(u.finame, " ", u.lname) as name, o.room, o.status, o.total
+        $sql_user = 'SELECT o.id as id, o.datetime as time, concat(u.finame, " ", u.lname) as name, o.room, o.status, o.total
             FROM orders o join users u on o.user_id=u.id;';
         $stmt_user = $conn->prepare($sql_user);
         $stmt_user->execute();
@@ -35,10 +35,10 @@
                 <th>Status</th>
                 </tr>';
             echo '<tr>';
-            echo '<td>'. $row_user['time'].'</td>';
+            echo '<td>'.$row_user['time'].'</td>';
             echo '<td>'.$row_user['name'].'</td>';
             echo '<td>'.$row_user['room'].'</td>';
-            echo '<td>'.$row_user['status'].'</td>';
+            echo '<td>'.$row_user['status'].'<button data-status="'.$row_user['status'].'" class="btn btn-warning ms-3" onclick="updateStatus('.$row_user["id"].')">Deliver</button>'.'</td>';
             echo '</tr>';
             echo '</table>';
             echo '</div>';
@@ -76,6 +76,10 @@
         echo 'Connection failed: '. $e->getMessage();
     }
     ?>
-
+    <script>
+        function updateStatus($id, $status){
+            console.log($id, $status, this.target);
+        }
+    </script>
 </body>
 </html>
