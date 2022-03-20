@@ -14,7 +14,7 @@
     <?php
     $dsn = 'mysql:dbname=cafeteriadb;host=localhost;port=3306;';
     $user = 'root';
-    $password = 'hatory0000';
+    $password = 'password';
     try{
         $conn = new PDO($dsn, $user, $password);
 
@@ -27,7 +27,7 @@
         foreach($result_user as $row_user){
             echo '<div class="order">';
             echo '<div class="header">';
-            echo '<table class="table table-dark table-bordered">';
+            echo '<table class="table table-dark table-bordered text-center">';
             echo '<tr>
                 <th>Order Date</th>
                 <th>Name</th>
