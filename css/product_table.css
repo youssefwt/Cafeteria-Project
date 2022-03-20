@@ -9,5 +9,73 @@ body {
   
 }
 table{
+  position:relative;
+  top:80px;
   color: white;
+}
+
+.header {
+  background: #010103;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 0.1rem solid rgba(255, 255, 255, 0.3);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  margin-bottom: 20px;
+  font-family: 'Roboto', sans-serif;
+  font-size: 1.2rem;
+  padding:10px;
+}
+
+.header>.logo{
+  justify-self:start;
+}
+
+.header .logo img {
+  height: 4rem;
+  margin-left:30px;
+}
+
+.header>nav{
+  margin:auto;
+}
+
+.header .navbar a {
+  margin: 0 1rem;
+  color: #fff;
+}
+
+.header .navbar a:hover {
+  color: #d3ad7f;
+  border-bottom: 0.1rem solid #d3ad7f;
+  padding-bottom: 0.5rem;
+}
+
+
+.buttonSignout{
+  border-radius:20px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  color: #502502;
+  background: #d3ad7f;
+  font-weight: bold;
+  border:none;
+  padding:15px;
+  margin-right:50px;
+  font-size:1.2rem;
+}
+
+.buttonSignout:hover{
+  background: #502502;
+  color: #fff;
+}
+
+#UsersADD{
+  position:relative;
+  top:100px;
 }
