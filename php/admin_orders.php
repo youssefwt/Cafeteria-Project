@@ -18,8 +18,8 @@
     try{
         $conn = new PDO($dsn, $user, $password);
 
-        $sql_user = 'SELECT o.id as id, o.datetime as time, concat(u.finame, " ", u.lname) as name, o.room, o.status, o.total
-            FROM orders o join users u on o.user_id=u.id;';
+        $sql_user = 'SELECT o.id as id, o.datetime as time, concat(u.finame, " ", u.lname) as name, o.room, o.status, o.total as total
+            FROM orders o join users u on o.user_id=u.id WHERE o.status != "Delivered";';
         $stmt_user = $conn->prepare($sql_user);
         $stmt_user->execute();
         $result_user = $stmt_user->fetchAll(PDO::FETCH_ASSOC);
@@ -38,7 +38,7 @@
             echo '<td>'.$row_user['time'].'</td>';
             echo '<td>'.$row_user['name'].'</td>';
             echo '<td>'.$row_user['room'].'</td>';
-            echo '<td>'.$row_user['status'].'<button data-status="'.$row_user['status'].'" class="btn btn-warning ms-3" onclick="updateStatus('.$row_user["id"].')">Deliver</button>'.'</td>';
+            echo '<td>'.$row_user['status'].'<button data-status="'.$row_user['status'].'" data-id="'.$row_user['id'].'" class="btn btn-warning ms-3" onclick="updateStatus(event)">Deliver</button>'.'</td>';
             echo '</tr>';
             echo '</table>';
             echo '</div>';
@@ -53,21 +53,21 @@
             $stmt_product = $conn->prepare($sql_product);
             $stmt_product->execute();
             $result_product = $stmt_product->fetchAll(PDO::FETCH_ASSOC);
-            $total = 0;
+            //$total = 0;
             foreach($result_product as $row_product){
                 echo "<div class='image'>";
 
 
                     echo "<img style='max-width:100px;max-height: 100px;min-width:100px;min-height: 100px' src='../assets/images/products/".$row_product["image_url"]."'>";
                     echo '<span class="text-light">'.$row_product['quantity']."x ".$row_product['price']."LE".'</span>';
-                    $total += $row_product['quantity'] * $row_product['price'];
+                    //$total += $row_product['quantity'] * $row_product['price'];
                 echo "</div>";
             }
             echo '</div>
             <div class="footer">
                 <span class="text-light">Total: EGP ';
                 //echo $row_user["total"];
-                echo $total;
+                echo $row_user['total'];
                 echo '</span>
             </div>';
             echo '</div>';
@@ -77,8 +77,19 @@
     }
     ?>
     <script>
-        function updateStatus($id, $status){
-            console.log($id, $status, this.target);
+        async function updateStatus(e){
+            let status = e.target.dataset.status == "processing"? "On Delivery" : "Delivered";
+            let id = e.target.dataset.id;
+            console.log(status, id);
+            fetch(`./controllers/changeOrderStatus.php?orderId=${id}&status=${status}`)
+            .then(()=>{
+                if(status == "On Delivery")
+                    e.target.parentElement.innerHTML = `<td>${status}<button data-status="${status}" data-id="${id}" class="btn btn-success ms-3" onclick="updateStatus(event)">Done</button></td>`
+                else
+                    e.target.parentElement.innerHTML = `<td>${status}</td>`
+
+            })
+            
         }
     </script>
 </body>
