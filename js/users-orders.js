@@ -5,29 +5,53 @@ datePicker.forEach((element) => {
     this.type = "date";
   });
 }); /* end */
-let dateFrom;
-let dateTo;
+
+let dateFrom=`1970-01-01`;
+let dateTo=`2099-12-30`;
+let mydate = /^[0-9]{4}-[0-9]{2}-[0-9]{2}?/;
+
+
 /* filter button */
 let filterBtn = document.querySelector(".filterbtn");
 filterBtn.addEventListener("click", function () {
-  dateFrom = document.getElementById("date-from").value;
-  dateTo = document.getElementById("date-to").value;
+  inputFrom = document.getElementById("date-from").value;
+  inputTo = document.getElementById("date-to").value;
+  if(mydate.test(inputFrom)) 
+    dateFrom=inputFrom;
+  if(mydate.test(inputTo)) 
+    dateTo=inputTo;
   /**check if date from is less than date after !!!! */
   if (dateTo) {
     if (dateFrom > dateTo) {
       alert("date from must be less than date to");
       datePicker.forEach((el) => {
-        el.value = "--/--/----";
+        el.value = ""
+         dateFrom=`1970-01-01`;
+         dateTo=`2099-30-12`;;
       });
     }
   }
+  let orderTable = document.getElementById("orders-container");
+  orderTable.innerHTML ="";
+  renderOrders()
   console.log(dateFrom);
   console.log(dateTo);
 }); /* end */
 
+/** reset button */
+let resetBtn = document.getElementById("resetbtn")
+resetBtn.addEventListener('click',function(){
+  datePicker.forEach((el) => {
+    el.type="text";
+  });
+  datePicker[0].value='date from';
+  datePicker[1].value='date To';
+})
+/**end */
+
 /* rendering order table */
-async function renderOrders() {
-  let userOrders = await getUserOrders();
+async function renderOrders(user) {
+  let userOrders = await getUserOrders(user);
   let orderTable = document.getElementById("orders-container");
   for (let order of userOrders) {
     orderTable.innerHTML += `<table class="table table-dark table-striped" id="table${order.id}">
@@ -55,15 +79,42 @@ async function renderOrders() {
 } /* end */
 
 /**getting orders from DB */
-async function getUserOrders() {
+async function getUserOrders(user) {
   let userOrders = await (
-    await fetch("../php/controllers/getUserOrders.php?userId=" + 1)
+    await fetch(`../php/controllers/getUserOrders.php?userId=${user.id}&start=${dateFrom}&end=${dateTo}`)
   ).json();
   // console.log(userOrders);
   return userOrders;
 }
 
-renderOrders();
+
+let user = {id:null, name:null, role:null};
+async function fillUser(){
+  try {
+    user = await (await fetch('../php/controllers/logged_in.php')).json();
+  }catch {
+    user = {id:null, name:null, role:null};
+  }
+  return user;
+}
+// console.log(user);
+// return user;
+
+function getCurrentUser(){
+  return user;
+}
+
+fillUser().then((user)=>{
+  if(user.role == 'user'){
+    renderOrders(user);
+  }else if(user.role == 'admin'){
+    location.assign('../php/admin_orders.php');
+  }
+  else {
+    location.assign('../');
+  }
+})
+
 /* end */
 
 /* show or hide order items */
@@ -83,14 +134,10 @@ function clickToExpand(id, i) {
 
 /* getting items from data base */
 async function connectDataBase(target, id) {
-  // if (!dateFrom && !dateTo) {
+  
   let orderItems1 = await getOrderItems(id);
   renderOrderItems(orderItems1, target);
-  //   } else {
-  //     /**call get order items with date */
-  //     let orderItems2 = await getOrderItemsFilter(id);
-  //     renderOrderItemsFilter(orderItems2, target);
-  //   }
+  
 }
 /* end */
 
@@ -99,28 +146,14 @@ function renderOrderItems(orderItems1, target) {
   for (let item of orderItems1) {
     target.innerHTML += `<div class="item">
                         <div class="img-container">
-                          <img src="../assets/images/test-images/img1.jpeg" alt="" />
-                          <div class="item-price"> ${item.Price} </div>
+                          <img style="max-width:100px;max-height: 100px;min-width:100px;min-height: 100px"  src="../assets/images/products/${item.image_url}" alt="" />
+                          <div class="item-price"> ${item.Price} E£</div>
                         </div>
                         <p>${item.name}</p>
                         <p>x ${item.quantity}</p>
                       </div>`;
   }
 }
-
-/**render order items filtered */
-// function renderOrderItemsFilter(orderItems2, target) {
-//   for (let item of orderItems2) {
-//     target.innerHTML += `<div class="item">
-//                         <div class="img-container">
-//                           <img src="../assets/images/test-images/img1.jpeg" alt="" />
-//                           <div class="item-price"> ${item.Price} </div>
-//                         </div>
-//                         <p>${item.name}</p>
-//                         <p>x ${item.quantity}</p>
-//                       </div>`;
-//   }
-// }
 
 /**getting orders items from db */
 async function getOrderItems(id) {
@@ -129,30 +162,13 @@ async function getOrderItems(id) {
   return orderItems;
 }
 
-/**getting orders items from db */
-// async function getOrderItemsFilter(id) {
-//   let orderItems = await (
-//     await fetch(
-//       "../php/controllers/getOrderItemsFilter.php?orderId=" +
-//         id +
-//         "dateFrom=" +
-//         dateFrom +
-//         "dateTo=" +
-//         dateTo
-//     )
-//   ).json();
-//   // console.log(orderItems);
-//   return orderItems;
-// }
-
-
 
 async function cancelOrder(id, button) {
   if(confirm("Are you sure you want to cancel this order")){
     let status = document.getElementById(`status${id}`);
     orderTable = document.getElementById(`table${id}`);
     orderDiv = document.getElementById(`order${id}`);
-    
+
     status.innerText="canceling order ...";
     button.remove();
     
@@ -169,6 +185,6 @@ function removeOrder(){
 }
 
 async function deleteOrder(id){
-  let test = await fetch("../php/controllers/cancelOrder.php?orderId=" + id);
-  return test;
+  await fetch("../php/controllers/cancelOrder.php?orderId=" + id);
+  return true;
 }

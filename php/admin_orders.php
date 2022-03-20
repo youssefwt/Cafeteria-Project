@@ -6,18 +6,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Orders</title>
     <link rel="stylesheet" href="../css/admin_orders.css">
+    <link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.css" />
 </head>
 <body>
     <h1>Orders</h1>
 
     <?php
     $dsn = 'mysql:dbname=cafeteriadb;host=localhost;port=3306;';
-    $user = 'root';
-    $password = 'password';
+    $user = 'abdallah';
+    $password = 'root';
     try{
         $conn = new PDO($dsn, $user, $password);
 
-        $sql_user = 'SELECT o.id, o.datetime as time, concat(u.fname, " ", u.lname) as name, o.room, o.status, o.total
+        $sql_user = 'SELECT o.id, o.datetime as time, concat(u.finame, " ", u.lname) as name, o.room, o.status, o.total
             FROM orders o join users u on o.user_id=u.id;';
         $stmt_user = $conn->prepare($sql_user);
         $stmt_user->execute();
@@ -26,7 +27,7 @@
         foreach($result_user as $row_user){
             echo '<div class="order">';
             echo '<div class="header">';
-            echo '<table>';
+            echo '<table class="table table-dark table-bordered">';
             echo '<tr>
                 <th>Order Date</th>
                 <th>Name</th>
@@ -55,14 +56,16 @@
             $total = 0;
             foreach($result_product as $row_product){
                 echo "<div class='image'>";
-                    echo "<img src='../items/".$row_product["image_url"]."'>";
-                    echo '<span>'.$row_product['quantity']."x ".$row_product['price']."LE".'</span>';
+
+
+                    echo "<img style='max-width:100px;max-height: 100px;min-width:100px;min-height: 100px' src='../assets/images/products/".$row_product["image_url"]."'>";
+                    echo '<span class="text-light">'.$row_product['quantity']."x ".$row_product['price']."LE".'</span>';
                     $total += $row_product['quantity'] * $row_product['price'];
                 echo "</div>";
             }
             echo '</div>
             <div class="footer">
-                <span>Total: EGP ';
+                <span class="text-light">Total: EGP ';
                 //echo $row_user["total"];
                 echo $total;
                 echo '</span>

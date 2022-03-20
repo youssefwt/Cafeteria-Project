@@ -28,5 +28,5 @@ var_dump($sum);
 //}
 $by_admin ="yes";
 $db->user_make_order($sum, $order->id, $order->room, $order->notes, $by_admin, $order);
-header("Location:../Html/users-orders.html");
+header("Location:../php/admin_orders.php");
 
