@@ -17,6 +17,7 @@
 
     <!-- custom css file link  -->
     <link rel="stylesheet" href="../css/users-order.css" />
+    <link rel="stylesheet" href="../css/addheader.css" />
 
     <!-- jQuery file link  -->
     <script src="../js/jquery-3.6.0.min.js"></script>
@@ -24,31 +25,12 @@
 
   <body>
     <!-- header section starts  -->
-    <section class="header">
-      <div class="links">
-        <a href="#" class="logo">
-          <img src="../assets/images/landing-page/logo.png" alt="" />
-        </a>
-        <nav class="navbar">
-          <a href="../index.html">home</a>
-          <!-- <a href="#myorders">my orders</a> -->
-          <span>> my orders</span>
-        </nav>
-      </div>
-      <div class="user">
-        <img
-          src="../assets/images/users/test-user.PNG"
-          alt=""
-          class="user-photo"
-        />
-        <!-- Get username variable from local storage   -->
-        <span class="user-name">islam askar</span>
-      </div>
-    </section>
+    <header class="header" id="header"></header>
     <!-- header section ends  -->
 
     <!-- orders section starts  -->
     <!-- date picker start  -->
+    <br /><br />
     <section class="orders-section">
       <div class="container py-2">
         <p class="fw-bold my-0" style="font-size: 4rem">my orders</p>
@@ -64,10 +46,10 @@
           class="date-picker"
           id="date-to"
         />
-        
-          <input type="button" value="filter" class="filterbtn" />
-          <button type="reset" class="filterbtn" id="resetbtn">Reset</button>
-        
+
+        <input type="button" value="filter" class="filterbtn" />
+        <button type="reset" class="filterbtn" id="resetbtn">Reset</button>
+
         <!-- date picker ends  -->
 
         <!-- order start  -->
@@ -107,6 +89,7 @@
 
     <script src="../assets/bootstrap/js/bootstrap.bundle.js"></script>
     <script src="../js/users-orders.js"></script>
-
+    <script src="../js/index2.js"></script>
+    <script src="../js/addHeader2.js"></script>
   </body>
 </html>

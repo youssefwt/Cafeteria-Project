@@ -4,7 +4,7 @@ class DbManager
 {
     private $dsn = 'mysql:dbname=Cafeteriadb;host=127.0.0.1;port=3306;';
     private $user = 'root';
-    private $password = '12345';
+    private $password = '123456';
     public $pdo;
 
     public function __construct()
@@ -318,11 +318,11 @@ class DbManager
     // End of Methods for Users Table
 
 
-    public function changeOrderStatus($status, $id){
+    public function changeOrderStatus($status, $id)
+    {
         $query = "update orders set status = :status where id = :orderId;";
         $stmt = $this->pdo->prepare($query);
         $stmt->execute(["orderId" => $id, "status" => $status]);
         $stmt->closeCursor();
     }
-
 }

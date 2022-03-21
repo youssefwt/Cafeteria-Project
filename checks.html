@@ -8,9 +8,51 @@
     <link rel="stylesheet" href="./assets/bootstrap/css/bootstrap.css" />
 
     <style>
+      @import "css/header.css";
+      :root {
+        --main-color: #d3ad7f;
+        --black: #13131a;
+        --bg: #010103;
+        --border: 0.1rem solid rgba(255, 255, 255, 0.3);
+      }
+
+      * {
+        font-family: "Roboto", sans-serif;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        outline: none;
+        border: none;
+        text-decoration: none;
+        text-transform: capitalize;
+        transition: 0.2s linear;
+      }
       body {
         padding-top: 50px;
-        background-color: #34495e;
+      }
+
+      html {
+        font-size: 62.5%;
+        overflow-x: hidden;
+        scroll-padding-top: 9rem;
+        scroll-behavior: smooth;
+      }
+
+      html::-webkit-scrollbar {
+        width: 0.8rem;
+      }
+
+      html::-webkit-scrollbar-track {
+        background: transparent;
+      }
+
+      html::-webkit-scrollbar-thumb {
+        background: #fff;
+        border-radius: 5rem;
+      }
+
+      body {
+        background: var(--bg);
       }
 
       .hiddenRow {
@@ -20,169 +62,180 @@
   </head>
   <body>
     <!-- partial:index.partial.html -->
-    <div class="text-light m-3 p-2">
-      from
-      <input id="startDate" type="date" value="2022-03-02" />
+    <header class="header" id="header"></header>
 
-      to
-      <input id="endDate" type="date" value="2022-03-30" />
+    <br /><br />
+    <div>
+      <div class="text-light m-3 mt-5 p-2">
+        from
+        <input id="startDate" type="date" value="2022-03-02" />
 
-      <button onclick="filter()">filter</button>
-    </div>
+        to
+        <input id="endDate" type="date" value="2022-03-30" />
 
-    <div class="container">
-      <div class="col-md-12">
-        <div class="card">
-          <div class="card-header">Checks</div>
-          <div class="card-body">
-            <table class="table table-striped">
-              <!-- first table head -->
-              <thead>
-                <tr>
-                  <th></th>
-                  <th>Name</th>
-                  <th>Total</th>
-                </tr>
-              </thead>
+        <button onclick="filter()">filter</button>
+      </div>
 
-              <tbody id="checksTableBody">
-                <!--  user -->
-                <tr data-bs-toggle="collapse" data-bs-target="#demo1">
-                  <td>
-                    <button class="btn">
-                      <span>+</span>
-                    </button>
-                  </td>
-                  <td>Hassan</td>
-                  <td>$100</td>
-                </tr>
-                <!-- user orders -->
-                <tr>
-                  <td colspan="12" class="hiddenRow">
-                    <div class="collapse" id="demo1">
-                      <table class="table table-dark table-striped">
-                        <thead>
-                          <tr>
-                            <th></th>
-                            <th>Order Date</th>
-                            <th>Amount</th>
-                          </tr>
-                        </thead>
+      <div class="container">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-header">Checks</div>
+            <div class="card-body">
+              <table class="table table-striped">
+                <!-- first table head -->
+                <thead>
+                  <tr>
+                    <th></th>
+                    <th>Name</th>
+                    <th>Total</th>
+                  </tr>
+                </thead>
 
-                        <tbody>
-                          <tr
-                            data-bs-toggle="collapse"
-                            data-bs-target="#demo10"
-                          >
-                            <td>+</td>
-                            <td>Wed Mar 02 2022 16:43:23</td>
-                            <td>$10</td>
-                          </tr>
+                <tbody id="checksTableBody">
+                  <!--  user -->
+                  <tr data-bs-toggle="collapse" data-bs-target="#demo1">
+                    <td>
+                      <button class="btn">
+                        <span>+</span>
+                      </button>
+                    </td>
+                    <td>Hassan</td>
+                    <td>$100</td>
+                  </tr>
+                  <!-- user orders -->
+                  <tr>
+                    <td colspan="12" class="hiddenRow">
+                      <div class="collapse" id="demo1">
+                        <table class="table table-dark table-striped">
+                          <thead>
+                            <tr>
+                              <th></th>
+                              <th>Order Date</th>
+                              <th>Amount</th>
+                            </tr>
+                          </thead>
 
-                          <!-- oredr details -->
-                          <tr>
-                            <td colspan="12" class="hiddenRow">
-                              <div id="demo10" class="collapse">
-                                <div class="d-flex justify-content-around my-3">
-                                  <!-- item -->
+                          <tbody>
+                            <tr
+                              data-bs-toggle="collapse"
+                              data-bs-target="#demo10"
+                            >
+                              <td>+</td>
+                              <td>Wed Mar 02 2022 16:43:23</td>
+                              <td>$10</td>
+                            </tr>
+
+                            <!-- oredr details -->
+                            <tr>
+                              <td colspan="12" class="hiddenRow">
+                                <div id="demo10" class="collapse">
                                   <div
-                                    style="border: 1px solid white"
-                                    class="text-center p-2 border-1"
+                                    class="d-flex justify-content-around my-3"
                                   >
-                                    <img
-                                      src="assets/images/landing-page/menu-1.png"
-                                      alt=""
-                                    />
-                                    <div>price: $<span>15.12</span></div>
-                                    <div>quantity: <span>3</span></div>
-                                  </div>
-                                  <!-- item -->
-                                  <div
-                                    style="border: 1px solid white"
-                                    class="text-center p-2 border-1"
-                                  >
-                                    <img
-                                      src="assets/images/landing-page/menu-1.png"
-                                      alt=""
-                                    />
-                                    <div>price: $<span>15.12</span></div>
-                                    <div>quantity: <span>3</span></div>
-                                  </div>
-                                  <!-- item -->
-                                  <div
-                                    style="border: 1px solid white"
-                                    class="text-center p-2 border-1"
-                                  >
-                                    <img
-                                      src="assets/images/landing-page/menu-1.png"
-                                      alt=""
-                                    />
-                                    <div>price: $<span>15.12</span></div>
-                                    <div>quantity: <span>3</span></div>
+                                    <!-- item -->
+                                    <div
+                                      style="border: 1px solid white"
+                                      class="text-center p-2 border-1"
+                                    >
+                                      <img
+                                        src="assets/images/landing-page/menu-1.png"
+                                        alt=""
+                                      />
+                                      <div>price: $<span>15.12</span></div>
+                                      <div>quantity: <span>3</span></div>
+                                    </div>
+                                    <!-- item -->
+                                    <div
+                                      style="border: 1px solid white"
+                                      class="text-center p-2 border-1"
+                                    >
+                                      <img
+                                        src="assets/images/landing-page/menu-1.png"
+                                        alt=""
+                                      />
+                                      <div>price: $<span>15.12</span></div>
+                                      <div>quantity: <span>3</span></div>
+                                    </div>
+                                    <!-- item -->
+                                    <div
+                                      style="border: 1px solid white"
+                                      class="text-center p-2 border-1"
+                                    >
+                                      <img
+                                        src="assets/images/landing-page/menu-1.png"
+                                        alt=""
+                                      />
+                                      <div>price: $<span>15.12</span></div>
+                                      <div>quantity: <span>3</span></div>
+                                    </div>
                                   </div>
                                 </div>
-                              </div>
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                  </td>
-                </tr>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </td>
+                  </tr>
 
-                <!--  user -->
-                <tr data-bs-toggle="collapse" data-bs-target="#order1">
-                  <td>
-                    <button class="btn btn-default btn-xs">
-                      <span>+</span>
-                    </button>
-                  </td>
-                  <td>Hassan</td>
-                  <td>$100</td>
-                </tr>
+                  <!--  user -->
+                  <tr data-bs-toggle="collapse" data-bs-target="#order1">
+                    <td>
+                      <button class="btn btn-default btn-xs">
+                        <span>+</span>
+                      </button>
+                    </td>
+                    <td>Hassan</td>
+                    <td>$100</td>
+                  </tr>
 
-                <!-- user orders -->
-                <tr>
-                  <td colspan="12" class="hiddenRow">
-                    <div class="collapse" id="demo1">
-                      <table class="table table-dark table-striped">
-                        <thead>
-                          <tr>
-                            <th></th>
-                            <th>Order Date</th>
-                            <th>Amount</th>
-                          </tr>
-                        </thead>
+                  <!-- user orders -->
+                  <tr>
+                    <td colspan="12" class="hiddenRow">
+                      <div class="collapse" id="demo1">
+                        <table class="table table-dark table-striped">
+                          <thead>
+                            <tr>
+                              <th></th>
+                              <th>Order Date</th>
+                              <th>Amount</th>
+                            </tr>
+                          </thead>
 
-                        <tbody>
-                          <tr
-                            data-bs-toggle="collapse"
-                            data-bs-target="#demo10"
-                          >
-                            <td>+</td>
-                            <td>Wed Mar 02 2022 16:43:23</td>
-                            <td>$10</td>
-                          </tr>
+                          <tbody>
+                            <tr
+                              data-bs-toggle="collapse"
+                              data-bs-target="#demo10"
+                            >
+                              <td>+</td>
+                              <td>Wed Mar 02 2022 16:43:23</td>
+                              <td>$10</td>
+                            </tr>
 
-                          <!-- order details -->
-                          <tr>
-                            <td colspan="12" class="hiddenRow">
-                              <div id="demo10" class="collapse"></div>
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+                            <!-- order details -->
+                            <tr>
+                              <td colspan="12" class="hiddenRow">
+                                <div id="demo10" class="collapse"></div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>
     </div>
     <!-- BootStrap@5  -->
     <script src="./assets/bootstrap/js/bootstrap.bundle.js"></script>
+    <script src="./index.js"></script>
+
+    <script src="./js/addHeader.js"></script>
+
     <script src="./js/check.js"></script>
   </body>
 </html>

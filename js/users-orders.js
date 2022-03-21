@@ -6,47 +6,44 @@ datePicker.forEach((element) => {
   });
 }); /* end */
 
-let dateFrom=`1970-01-01`;
-let dateTo=`2099-12-30`;
+let dateFrom = `1970-01-01`;
+let dateTo = `2099-12-30`;
 let mydate = /^[0-9]{4}-[0-9]{2}-[0-9]{2}?/;
-
 
 /* filter button */
 let filterBtn = document.querySelector(".filterbtn");
 filterBtn.addEventListener("click", function () {
   inputFrom = document.getElementById("date-from").value;
   inputTo = document.getElementById("date-to").value;
-  if(mydate.test(inputFrom)) 
-    dateFrom=inputFrom;
-  if(mydate.test(inputTo)) 
-    dateTo=inputTo;
+  if (mydate.test(inputFrom)) dateFrom = inputFrom;
+  if (mydate.test(inputTo)) dateTo = inputTo;
   /**check if date from is less than date after !!!! */
   if (dateTo) {
     if (dateFrom > dateTo) {
       alert("date from must be less than date to");
       datePicker.forEach((el) => {
-        el.value = ""
-         dateFrom=`1970-01-01`;
-         dateTo=`2099-30-12`;;
+        el.value = "";
+        dateFrom = `1970-01-01`;
+        dateTo = `2099-30-12`;
       });
     }
   }
   let orderTable = document.getElementById("orders-container");
-  orderTable.innerHTML ="";
-  renderOrders()
+  orderTable.innerHTML = "";
+  renderOrders();
   console.log(dateFrom);
   console.log(dateTo);
 }); /* end */
 
 /** reset button */
-let resetBtn = document.getElementById("resetbtn")
-resetBtn.addEventListener('click',function(){
+let resetBtn = document.getElementById("resetbtn");
+resetBtn.addEventListener("click", function () {
   datePicker.forEach((el) => {
-    el.type="text";
+    el.type = "text";
   });
-  datePicker[0].value='date from';
-  datePicker[1].value='date To';
-})
+  datePicker[0].value = "date from";
+  datePicker[1].value = "date To";
+});
 /**end */
 
 /* rendering order table */
@@ -54,11 +51,17 @@ async function renderOrders(user) {
   let userOrders = await getUserOrders(user);
   let orderTable = document.getElementById("orders-container");
   for (let order of userOrders) {
-    orderTable.innerHTML += `<table class="table table-dark table-striped" id="table${order.id}">
+    orderTable.innerHTML += `<table class="table table-dark table-striped" id="table${
+      order.id
+    }">
                             <thead class="fs-2">
                               <tr>
                                 <th scope="col">
-                                  order id ${order.id} &emsp; <i class="fas fa-plus" onclick="clickToExpand(${order.id},this)"></i>
+                                  order id ${
+                                    order.id
+                                  } &emsp; <i class="fas fa-plus" onclick="clickToExpand(${
+      order.id
+    },this)"></i>
                                 </th>
                                 <th scope="col" >status</th>
                                 <th scope="col">amount</th>
@@ -70,50 +73,56 @@ async function renderOrders(user) {
                                 <td>made on &ensp; ${order.datetime}</td>
                                 <td  id="status${order.id}">${order.status}</td>
                                 <td>${order.total}</td>
-                                <td>${order.status == "processing" ? `<button class="btn btn-warning fs-4" onclick="cancelOrder(${order.id},this)">cancel</button>`: ""}</td>
+                                <td>${
+                                  order.status == "processing"
+                                    ? `<button class="btn btn-warning fs-4" onclick="cancelOrder(${order.id},this)">cancel</button>`
+                                    : ""
+                                }</td>
                               </tr>
                             </tbody>
                           </table>
-                          <div class="order-items hide" id="order${order.id}"></div>`;
+                          <div class="order-items hide" id="order${
+                            order.id
+                          }"></div>`;
   }
 } /* end */
 
 /**getting orders from DB */
 async function getUserOrders(user) {
   let userOrders = await (
-    await fetch(`../php/controllers/getUserOrders.php?userId=${user.id}&start=${dateFrom}&end=${dateTo}`)
+    await fetch(
+      `../php/controllers/getUserOrders.php?userId=${user.id}&start=${dateFrom}&end=${dateTo}`
+    )
   ).json();
   // console.log(userOrders);
   return userOrders;
 }
 
-
-let user = {id:null, name:null, role:null};
-async function fillUser(){
+let user2 = { id: null, name: null, role: null };
+async function fillUser2() {
   try {
-    user = await (await fetch('../php/controllers/logged_in.php')).json();
-  }catch {
-    user = {id:null, name:null, role:null};
+    user2 = await (await fetch("../php/controllers/logged_in.php")).json();
+  } catch {
+    user2 = { id: null, name: null, role: null };
   }
-  return user;
+  return user2;
 }
 // console.log(user);
 // return user;
 
-function getCurrentUser(){
-  return user;
+function getCurrentUser2() {
+  return user2;
 }
 
-fillUser().then((user)=>{
-  if(user.role == 'user'){
+fillUser2().then((user) => {
+  if (user.role == "user") {
     renderOrders(user);
-  }else if(user.role == 'admin'){
-    location.assign('../php/admin_orders.php');
+  } else if (user.role == "admin") {
+    location.assign("../php/admin_orders.php");
+  } else {
+    location.assign("../");
   }
-  else {
-    location.assign('../');
-  }
-})
+});
 
 /* end */
 
@@ -134,10 +143,8 @@ function clickToExpand(id, i) {
 
 /* getting items from data base */
 async function connectDataBase(target, id) {
-  
   let orderItems1 = await getOrderItems(id);
   renderOrderItems(orderItems1, target);
-  
 }
 /* end */
 
@@ -157,34 +164,34 @@ function renderOrderItems(orderItems1, target) {
 
 /**getting orders items from db */
 async function getOrderItems(id) {
-  let orderItems = await (await fetch("../php/controllers/getOrderItems.php?orderId=" + id)).json();
+  let orderItems = await (
+    await fetch("../php/controllers/getOrderItems.php?orderId=" + id)
+  ).json();
   // console.log(orderItems);
   return orderItems;
 }
 
-
 async function cancelOrder(id, button) {
-  if(confirm("Are you sure you want to cancel this order")){
+  if (confirm("Are you sure you want to cancel this order")) {
     let status = document.getElementById(`status${id}`);
     orderTable = document.getElementById(`table${id}`);
     orderDiv = document.getElementById(`order${id}`);
 
-    status.innerText="canceling order ...";
+    status.innerText = "canceling order ...";
     button.remove();
-    
+
     // await
     let test = await deleteOrder(id);
-    if(test)
-    setTimeout(removeOrder,1200);
+    if (test) setTimeout(removeOrder, 1200);
   }
 }
 
-function removeOrder(){
+function removeOrder() {
   orderTable.remove();
   orderDiv.remove();
 }
 
-async function deleteOrder(id){
+async function deleteOrder(id) {
   await fetch("../php/controllers/cancelOrder.php?orderId=" + id);
   return true;
 }
