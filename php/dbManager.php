@@ -317,4 +317,12 @@ class DbManager
     // }
     // End of Methods for Users Table
 
+
+    public function changeOrderStatus($status, $id){
+        $query = "update orders set status = :status where id = :orderId;";
+        $stmt = $this->pdo->prepare($query);
+        $stmt->execute(["orderId" => $id, "status" => $status]);
+        $stmt->closeCursor();
+    }
+
 }
