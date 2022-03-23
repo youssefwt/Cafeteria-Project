@@ -30,10 +30,6 @@ async function fillUser() {
     location.assign("http://localhost/Cafeteria-Project/index.html");
   }
 }
-// return user;
 fillUser();
 
-//  function getCurrentUser(){
-//      return user;
-//  }
-// console.log( getCurrentUser() ) ;
+
