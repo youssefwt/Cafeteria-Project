@@ -201,4 +201,51 @@ async function getLastOrder(){
 get_products();
 getLastOrder();
 
+async function signout(){
+    await fetch('../php/controllers/logout.php');
+    location.reload();
+}
+
+let user = {id:null, name:null, role:null};
+
+async function fillUser(){
+    try {
+        user = await (await fetch('../php/controllers/logged_in.php')).json();
+    }catch {
+        user = {id:null, name:null, role:null};
+    }
+    return user;
+}
+
+fillUser().then((user)=>{
+    let header = document.getElementById('header');
+
+    header.innerHTML = `
+    <a href="../" class="logo">
+        <img src="../assets/images/landing-page/logo.png" alt="" />
+    </a>
+
+    <nav class="navbar" id="nav">
+        <a href="../">Home</a>
+        <a href="../#menu">Menu</a>
+    </nav>
+    <div class="icons d-flex align-items-baseline">
+        <div class="fas fa-bars" id="menu-btn"></div>
+        <button onclick="${user.id ? "signout()" : "location.assign('../html/sign_in.html')"}" class="buttonSignout btn btn-alert">${user.id ? "Sign out" : "Sign in"}</button>
+    </div>
+`;
+    let nav = document.getElementById('nav');
+    if(user.role=='admin'){
+        nav.innerHTML+= `
+            <a href="../HTML/fillUsersTable.html">Users</a>
+            <a href="../HTML/product_table.html">Products</a>
+            <a href="../checks.html">Checks</a>
+            <a href="../php/admin-orders.php">All Orders</a> <!-- GAZAR Y3DLHA NOOOW -->
+        `;
+    }else if(user.role=='user'){
+        nav.innerHTML += `
+        <a href="../HTML/users-orders.html">My orders</a>
+`
+    }
+});
 

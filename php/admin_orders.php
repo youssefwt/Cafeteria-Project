@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,13 +9,14 @@
     <link rel="stylesheet" href="../css/admin_orders.css">
     <link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.css" />
 </head>
+
 <body>
     <h1>Orders</h1>
 
     <?php
     $dsn = 'mysql:dbname=cafeteriadb;host=localhost;port=3306;';
     $user = 'root';
-    $password = 'hatory0000';
+    $password = 'password';
     try{
         $conn = new PDO($dsn, $user, $password);
 
@@ -24,7 +26,7 @@
         $stmt_user->execute();
         $result_user = $stmt_user->fetchAll(PDO::FETCH_ASSOC);
 
-        foreach($result_user as $row_user){
+        foreach ($result_user as $row_user) {
             echo '<div class="order">';
             echo '<div class="header">';
             echo '<table class="table table-dark table-bordered text-center">';
@@ -35,10 +37,10 @@
                 <th>Status</th>
                 </tr>';
             echo '<tr>';
-            echo '<td>'.$row_user['time'].'</td>';
-            echo '<td>'.$row_user['name'].'</td>';
-            echo '<td>'.$row_user['room'].'</td>';
-            echo '<td>'.$row_user['status'].'<button data-status="'.$row_user['status'].'" data-id="'.$row_user['id'].'" class="btn btn-warning ms-3" onclick="updateStatus(event)">Deliver</button>'.'</td>';
+            echo '<td>' . $row_user['time'] . '</td>';
+            echo '<td>' . $row_user['name'] . '</td>';
+            echo '<td>' . $row_user['room'] . '</td>';
+            echo '<td>' . $row_user['status'] . '<button data-status="' . $row_user['status'] . '" data-id="' . $row_user['id'] . '" class="btn btn-warning ms-3" onclick="updateStatus(event)">Deliver</button>' . '</td>';
             echo '</tr>';
             echo '</table>';
             echo '</div>';
@@ -54,43 +56,44 @@
             $stmt_product->execute();
             $result_product = $stmt_product->fetchAll(PDO::FETCH_ASSOC);
             //$total = 0;
-            foreach($result_product as $row_product){
+            foreach ($result_product as $row_product) {
                 echo "<div class='image'>";
 
 
-                    echo "<img style='max-width:100px;max-height: 100px;min-width:100px;min-height: 100px' src='../assets/images/products/".$row_product["image_url"]."'>";
-                    echo '<span class="text-light">'.$row_product['quantity']."x ".$row_product['price']."LE".'</span>';
-                    //$total += $row_product['quantity'] * $row_product['price'];
+                echo "<img style='max-width:100px;max-height: 100px;min-width:100px;min-height: 100px' src='../assets/images/products/" . $row_product["image_url"] . "'>";
+                echo '<span class="text-light">' . $row_product['quantity'] . "x " . $row_product['price'] . "LE" . '</span>';
+                //$total += $row_product['quantity'] * $row_product['price'];
                 echo "</div>";
             }
             echo '</div>
             <div class="footer">
                 <span class="text-light">Total: EGP ';
-                //echo $row_user["total"];
-                echo $row_user['total'];
-                echo '</span>
+            //echo $row_user["total"];
+            echo $row_user['total'];
+            echo '</span>
             </div>';
             echo '</div>';
         }
-    }catch(PDOException $e){
-        echo 'Connection failed: '. $e->getMessage();
+    } catch (PDOException $e) {
+        echo 'Connection failed: ' . $e->getMessage();
     }
     ?>
     <script>
-        async function updateStatus(e){
-            let status = e.target.dataset.status == "processing"? "On Delivery" : "Delivered";
+        async function updateStatus(e) {
+            let status = e.target.dataset.status == "processing" ? "On Delivery" : "Delivered";
             let id = e.target.dataset.id;
             console.log(status, id);
             fetch(`./controllers/changeOrderStatus.php?orderId=${id}&status=${status}`)
-            .then(()=>{
-                if(status == "On Delivery")
-                    e.target.parentElement.innerHTML = `<td>${status}<button data-status="${status}" data-id="${id}" class="btn btn-success ms-3" onclick="updateStatus(event)">Done</button></td>`
-                else
-                    e.target.parentElement.innerHTML = `<td>${status}</td>`
+                .then(() => {
+                    if (status == "On Delivery")
+                        e.target.parentElement.innerHTML = `<td>${status}<button data-status="${status}" data-id="${id}" class="btn btn-success ms-3" onclick="updateStatus(event)">Done</button></td>`
+                    else
+                        e.target.parentElement.innerHTML = `<td>${status}</td>`
 
-            })
-            
+                })
+
         }
     </script>
 </body>
+
 </html>
