@@ -57,7 +57,7 @@
             echo '<td>' . $row_user['time'] . '</td>';
             echo '<td>' . $row_user['name'] . '</td>';
             echo '<td>' . $row_user['room'] . '</td>';
-            echo '<td>' . $row_user['status'] . '<button data-status="' . $row_user['status'] . '" data-id="' . $row_user['id'] . '" class="btn btn-warning ms-3" onclick="updateStatus(event)">Deliver</button>' . '</td>';
+            echo '<td class="target">' . $row_user['status'] . '<button data-status="' . $row_user['status'] . '" data-id="' . $row_user['id'] . '" class="btn btn-warning ms-3" onclick="updateStatus(event)">Deliver</button>' . '</td>';
             echo '</tr>';
             echo '</table>';
             echo '</div>';
@@ -96,6 +96,14 @@
     }
     ?>
     <script>
+        document.querySelectorAll(".target").forEach(element => {
+            if(element.childNodes[0].data == "On Delivery"){
+                element.childNodes[1].innerText = "Done";
+                element.childNodes[1].classList.remove("btn-warning");
+                element.childNodes[1].classList.add("btn-success");
+            }
+        });
+
         async function updateStatus(e) {
             let status = e.target.dataset.status == "Processing" ? "On Delivery" : "Delivered";
             let id = e.target.dataset.id;
@@ -108,7 +116,6 @@
                         e.target.parentElement.innerHTML = `<td>${status}</td>`
 
                 })
-
         }
     </script>
 </body>

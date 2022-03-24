@@ -1,6 +1,6 @@
 <?php
 
-if (!empty($_GET["orderId"]) || !empty($_GET["status"])) {
+if (!empty($_GET["orderId"]) && !empty($_GET["status"])) {
 
     $orderId = $_GET["orderId"];
     $status = $_GET["status"];
