@@ -4,7 +4,7 @@ class DbManager
 {
     private $dsn = 'mysql:dbname=Cafeteriadb;host=127.0.0.1;port=3306;';
     private $user = 'root';
-    private $password = 'password';
+    private $password = 'hatory0000';
     public $pdo;
 
     public function __construct()
