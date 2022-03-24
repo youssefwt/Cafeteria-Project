@@ -74,7 +74,7 @@ async function renderOrders(user) {
                                 <td  id="status${order.id}">${order.status}</td>
                                 <td>${order.total}</td>
                                 <td>${
-                                  order.status == "processing"
+                                  order.status == "Processing"
                                     ? `<button class="btn btn-warning fs-4" onclick="cancelOrder(${order.id},this)">cancel</button>`
                                     : ""
                                 }</td>

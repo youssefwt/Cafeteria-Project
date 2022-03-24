@@ -31,7 +31,7 @@ fillUser().then((user) => {
             <a href="./HTML/fillUsersTable.html">Users</a>
             <a href="./HTML/product_table.html">Products</a>
             <a href="./checks.html">Checks</a>
-            <a href="./php/admin_orders.php">All Orders</a> <!-- GAZAR Y3DLHA NOOOW -->
+            <a href="./php/admin_orders.php">All Orders</a> <!-- GAZAR Y3DLHA NOOOW: GAZZAR 3DLHA 5LAASSS-->
         `;
   } else if (user.role == "user") {
     nav.innerHTML += `

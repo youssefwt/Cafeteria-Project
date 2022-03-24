@@ -57,3 +57,31 @@ img{
     text-align: center;
     flex-direction: column;
 }
+
+#header{
+    background-color: black;
+    opacity: 1;
+    border: none;
+    border-bottom: 1px solid grey;
+    padding: 5px 6rem;
+}
+
+#logo{
+    width: 73px;
+    height: 61px;
+}
+
+header nav a{
+    margin: 0 12px;
+    color: white;
+}
+
+h1{
+    padding: 20px 0;
+    color: red;
+}
+
+.btn{
+    margin: auto 0;
+    color: antiquewhite;
+}

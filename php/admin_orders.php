@@ -11,12 +11,29 @@
 </head>
 
 <body>
+
+    <header class="header d-flex flex-row justify-content-between w-100 sticky-top align-bottom" id="header">
+      <a href="/php/Cafeteria-Project" class="logo">
+        <img src="../assets/images/landing-page/logo.png" id="logo" />
+      </a>
+      <nav class="navbar" id="nav">
+        <a href="#home">Home</a>
+        <a href="#menu">Menu</a>
+        <a href="../html/user_make_order.html">Make order</a>
+        <a href="../html/fillUsersTable.html">Users</a>
+        <a href="../html/product_table.html">Products</a>
+        <a href="../checks.html">Checks</a>
+        <a href="admin_orders.php">All Orders</a>
+      </nav>
+      <button class="btn btn-danger btn-lg">Sign out</button>
+    </header>
+
     <h1>Orders</h1>
 
     <?php
     $dsn = 'mysql:dbname=cafeteriadb;host=localhost;port=3306;';
     $user = 'root';
-    $password = 'password';
+    $password = '';
     try{
         $conn = new PDO($dsn, $user, $password);
 
@@ -80,7 +97,7 @@
     ?>
     <script>
         async function updateStatus(e) {
-            let status = e.target.dataset.status == "processing" ? "On Delivery" : "Delivered";
+            let status = e.target.dataset.status == "Processing" ? "On Delivery" : "Delivered";
             let id = e.target.dataset.id;
             console.log(status, id);
             fetch(`./controllers/changeOrderStatus.php?orderId=${id}&status=${status}`)
