@@ -19,10 +19,9 @@ async  function initFunction(){
          <td class='fs-5'>${product.name}</td>
          <td class='fs-5'>${product.Price}</td>
          <td class='fs-5'><img src="../assets/images/products/${product.image_url}" style='width:100px; height:100px ;border-radius:50%' alt="${product.name}" /></td>
-         
-          <td class='fs-5'>${product.status}<td>
+        <td class='fs-5'>${product.status}<td>
         <td class='fs-5'><a  class='btn btn-warning' href='editProduct.html?id=${product.id}'>Edit</a></td></td>
-         <td class='fs-5'><a class='btn btn-danger' id='delet' href='../php/deleteProduct.php?id=${product.id}' onclick="return confirm('Are you sure?');">Delete</a></td></td>
+        <td class='fs-5'><a class='btn btn-danger' id='delet' href='../php/deleteProduct.php?id=${product.id}' onclick="return confirm('Are you sure?');">Delete</a></td></td>
        </tr>
         `;
     }
@@ -66,10 +65,10 @@ fillUser().then((user)=>{
     let nav = document.getElementById('nav');
     if(user.role=='admin'){
         nav.innerHTML+= `
-            <a href="../HTML/fillUsersTable.html">Users</a>
-            <a href="../HTML/product_table.html">Products</a>
+            <a href="../html/fillUsersTable.html">Users</a>
+            <a href="../html/product_table.html">Products</a>
             <a href="../checks.html">Checks</a>
-            <a href="../php/admin-orders.php">All Orders</a> <!-- GAZAR Y3DLHA NOOOW -->
+            <a href="../php/admin_orders.php">All Orders</a> <!-- GAZAR Y3DLHA NOOOW: GAZZAR 3ADLHA 2OLLTTTT -->
         `;
     }else{
         location.assign('../')

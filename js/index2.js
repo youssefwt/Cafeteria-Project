@@ -1,16 +1,16 @@
-let user = { id: null, name: null, role: null };
+let usr = { id: null, name: null, role: null };
 async function fillUser() {
   try {
-    user = await (await fetch("../php/controllers/logged_in.php")).json();
+    usr = await (await fetch("../php/controllers/logged_in.php")).json();
   } catch {
-    user = { id: null, name: null, role: null };
+    usr = { id: null, name: null, role: null };
   }
-  return user;
+  return usr;
 }
-// console.log(user);
-// return user;
+// console.log(usr);
+// return usr;
 fillUser();
 
 function getCurrentUser() {
-  return user;
+  return usr;
 }

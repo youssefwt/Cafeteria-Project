@@ -33,7 +33,7 @@
     <?php
     $dsn = 'mysql:dbname=cafeteriadb;host=localhost;port=3306;';
     $user = 'root';
-    $password = '';
+    $password = 'hatory0000';
     try{
         $conn = new PDO($dsn, $user, $password);
 
