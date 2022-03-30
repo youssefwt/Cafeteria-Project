@@ -7,8 +7,7 @@ async function fillUser() {
   }
   return usr;
 }
-// console.log(usr);
-// return usr;
+
 fillUser();
 
 function getCurrentUser() {

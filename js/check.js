@@ -23,14 +23,14 @@ function render(usersTotals) {
   for (let data of usersTotals) {
     checksTableBody.innerHTML += `
         <!--  user -->
-        <tr data-bs-toggle="collapse" data-bs-target="#orders${data.user_id}">
-        <td>
-            <button onclick="renderOrders(${data.user_id})" class="btn">
+        <tr data-bs-toggle="collapse" data-bs-target="#orders${data.user_id}" class="text-light">
+        <td class="text-light">
+            <button onclick="renderOrders(${data.user_id})" class="btn text-light">
             <span>+</span>
             </button>
         </td>
-        <td>${data.finame}</td>
-        <td>$${data.total}</td>
+        <td class="text-light">${data.finame}</td>
+        <td class="text-light">$${data.total}</td>
         </tr>
 
         <!-- order details -->

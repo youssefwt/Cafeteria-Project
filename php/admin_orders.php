@@ -8,6 +8,7 @@
     <title>Orders</title>
     <link rel="stylesheet" href="../css/admin_orders.css">
     <link rel="stylesheet" href="../assets/bootstrap/css/bootstrap.css" />
+    <script src="../js/auth.js"></script>
 </head>
 
 <body>
@@ -17,23 +18,22 @@
         <img src="../assets/images/landing-page/logo.png" id="logo" />
       </a>
       <nav class="navbar" id="nav">
-        <a href="#home">Home</a>
-        <a href="#menu">Menu</a>
+        <a href="../">Home</a>
         <a href="../html/user_make_order.html">Make order</a>
         <a href="../html/fillUsersTable.html">Users</a>
         <a href="../html/product_table.html">Products</a>
         <a href="../checks.html">Checks</a>
         <a href="admin_orders.php">All Orders</a>
       </nav>
-      <button class="btn btn-danger btn-lg">Sign out</button>
+      <button class="btn btn-danger btn-lg" onclick="signout()">Sign out</button>
     </header>
 
     <h1>Orders</h1>
 
     <?php
     $dsn = 'mysql:dbname=cafeteriadb;host=localhost;port=3306;';
-    $user = 'abdallah';
-    $password = 'root';
+    $user = 'root';
+    $password = 'hatory0000';
     try{
         $conn = new PDO($dsn, $user, $password);
 

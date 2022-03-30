@@ -3,8 +3,8 @@
 class DbManager
 {
     private $dsn = 'mysql:dbname=Cafeteriadb;host=127.0.0.1;port=3306;';
-    private $user = 'abdallah';
-    private $password = 'root';
+    private $user = 'root';
+    private $password = 'hatory0000';
 
     public $pdo;
 

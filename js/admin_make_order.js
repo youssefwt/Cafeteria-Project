@@ -230,10 +230,10 @@ fillUser().then((user)=>{
     let nav = document.getElementById('nav');
     if(user.role=='admin'){
         nav.innerHTML+= `
-            <a href="../HTML/fillUsersTable.html">Users</a>
-            <a href="../HTML/product_table.html">Products</a>
+            <a href="../html/fillUsersTable.html">Users</a>
+            <a href="../html/product_table.html">Products</a>
             <a href="../checks.html">Checks</a>
-            <a href="../php/admin-orders.php">All Orders</a> <!-- GAZAR Y3DLHA NOOOW -->
+            <a href="../php/admin_orders.php">All Orders</a> <!-- GAZAR Y3DLHA NOOOW -->
         `;
     }else if(user.role=='user'){
         nav.innerHTML += `
