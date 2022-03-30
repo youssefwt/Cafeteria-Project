@@ -27,7 +27,7 @@ async function fillUser() {
   //   return user;
   console.log(user);
   if (user.role != "admin") {
-    location.assign("http://localhost/Cafeteria-Project/index.html");
+    location.assign("../index.html");
   }
 }
 fillUser();
