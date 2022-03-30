@@ -113,6 +113,13 @@ class DbManager
         $this->executeToJson($stmt);
     }
 
+    public function getavailProducts()
+    {
+        $query = "SELECT * FROM products WHERE status='avail'";
+        $stmt = $this->pdo->prepare($query);
+        $this->executeToJson($stmt);
+    }
+
     public function getUsersTotal($start, $end)
     {
 

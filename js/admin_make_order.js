@@ -26,7 +26,7 @@ completeOrder.addEventListener("click", function(){
 })
 
 async function get_products(){
-    let products = await (await fetch("../php/controllers/products.php")).json();
+    let products = await (await fetch("../php/controllers/getavailproducts.php")).json();
     renderProducts(products);
     let search = document.getElementById('search');
     search.addEventListener("keyup", function(){
