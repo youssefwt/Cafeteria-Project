@@ -27,4 +27,4 @@ foreach ($order as $key=>$value){
 //}
 $by_admin ="no";
 $db->user_make_order($sum, $_SESSION['id'], $order->room, $order->notes, $by_admin , $order);
-header("Location:../index.html");
+header("Location:../html/users-orders.html");
